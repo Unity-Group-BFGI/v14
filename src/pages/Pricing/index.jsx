@@ -1,4 +1,4 @@
-import { LayoutSwitcher } from '../../Layouts';
+import { LayoutSwitcher } from '../../layouts';
 const Pricing = () => {
     return (<LayoutSwitcher type={"landing"}>Pricing page</LayoutSwitcher>);
 };
