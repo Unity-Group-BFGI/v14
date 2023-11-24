@@ -18,7 +18,7 @@ import { Form, FloatingLabel } from "react-bootstrap";
 
 
 
-// Basic user info box    
+// Basic user info boxes   
 const BasicInfoBox = () => {
     const dispatch      = useDispatch();
     const [stepLoading,setStepLoading] = useState(true);
