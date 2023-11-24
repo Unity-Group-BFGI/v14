@@ -1,0 +1,14 @@
+.btn-api-try-again{
+    border: 1px solid;
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    padding: 3px;
+    min-width: 80px;
+    border-radius: 7px;
+    color: white;
+    font-weight: 500;
+}

@@ -1,0 +1,19 @@
+.draggable {
+    transition: opacity 0.3s ease;
+    outline: 0 !important;
+  }
+  .draggable.draggable-mirror {
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+    border: 2px dashed var(--bs-gray-300) !important;
+    border-radius: 0.475rem;
+  }
+  .draggable.draggable--original {
+    opacity: 0 !important;
+  }
+  .draggable.draggable-source--is-dragging.draggable--over {
+    opacity: 0 !important;
+  }
+  .draggable .draggable-handle {
+    cursor: move;
+  }

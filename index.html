@@ -1,0 +1,1559 @@
+<!doctype html>
+<html lang="en" data-bs-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/plyr/3.7.8/plyr.css" integrity="sha512-yexU9hwne3MaLL2PG+YJDhaySS9NWcj6z7MvUDSoMhwNghPgXgcvYgVhfj4FMYpPh1Of7bt8/RK5A0rQ9fPMOw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/css/keen/keenicons-duotone.css" />
+    <link rel="stylesheet" href="/css/keen/datatable.css" />
+    <title>Vite + React</title>
+    <style>
+      div#root {display: none;}
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js" integrity="sha512-zMfrMAZYAlNClPKjN+JMuslK/B6sPM09BGvrWlW+cymmPmsUT1xJF3P4kxI3lOh9zypakSgWaTpY6vDJY/3Dig==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+    <script src="/js/uuidv4.js"></script>
+    <script src="/js/texthighter.js"></script>
+    <script>
+      jQuery(document).ready(function($){
+        let initNiceScroll      = false;
+        
+        // section switcher 
+        $(document).on('click', '.question-palette__part', function (event, scrollDefault = true) {
+            let partIndex = $(this).data('part');
+            if(document.querySelector(`#navigation-bar-${partIndex}`)){
+              let total = $(`#navigation-bar-${partIndex} .question-palette__item`).length;
+              let checked = $(`#navigation-bar-${partIndex} .question-palette__item.-checked`).length;
+              if($('.js-attempt-only-reading').length > 0 || $('.js-attempt-only-listening').length > 0){
+                if(total === checked){
+                  $(`#navigation-bar-${partIndex}`).addClass('-finished');
+                } else {
+                  $(`#navigation-bar-${partIndex}`).removeClass('-finished');
+                }
+              }
+
+              if(!document.querySelector(`#navigation-bar-${partIndex}`).classList.contains('-active')){
+                  $('.question-palette__part').removeClass('-active');
+                  $('.test-contents').removeClass('-show');
+                  $('.test-panel').removeClass('-show');
+                  if(document.querySelector(`#navigation-bar-${partIndex}`)) document.querySelector(`#navigation-bar-${partIndex}`).classList.add('-active');
+                  if(document.querySelector(`#part-questions-${partIndex}`)) document.querySelector(`#part-questions-${partIndex}`).classList.add('-show');
+                  if(document.querySelector(`#part-${partIndex}`)) document.querySelector(`#part-${partIndex}`).classList.add('-show');
+                  $(`.question-palette__item`).removeClass('is-selected');
+                  if($(`#navigation-bar-${partIndex} .question-palette__item`).length > 0){
+                    $(`#navigation-bar-${partIndex} .question-palette__item`)[0].classList.add('is-selected');
+                    let qNum = $(`#navigation-bar-${partIndex} .question-palette__item`)[0].dataset.num;
+                    $(`.question__input[data-num="${qNum}"]`).focus();
+                    
+                  }
+              }
+
+            }
+        });
+
+        // question pallete
+        $(document).on('click', '.question-palette__item', function(event) {
+          // selected num
+          let qNum = $(this).data('num');
+          let pNum = $(this).data('p');
+          
+          
+          $('.question-palette__item').removeClass('is-selected');
+          $('.question-palette__part').removeClass('-active');
+          $('.test-contents').removeClass('-show');
+          $('.test-panel').removeClass('-show');
+
+
+          if(document.querySelector(`#navigation-bar-${pNum}`)) document.querySelector(`#navigation-bar-${pNum}`).classList.add('-active');
+          if(document.querySelector(`#part-questions-${pNum}`)) document.querySelector(`#part-questions-${pNum}`).classList.add('-show');
+          if(document.querySelector(`#part-${pNum}`)) document.querySelector(`#part-${pNum}`).classList.add('-show');
+          $(`.question-palette__item[data-num="${qNum}"]`).addClass('is-selected');
+          $(`.question__input[data-num="${qNum}"]`).focus();
+
+          if(+qNum > 1){
+            $('#js-btn-previous').removeClass('-disabled');
+            $('#js-btn-previous').attr('disabled', false);
+          } else {
+            $('#js-btn-previous').addClass('-disabled');
+            $('#js-btn-previous').attr('disabled', true);
+          }
+
+          if(+qNum  < $(`.question-palette__item`).length){
+            $('#js-btn-next').removeClass('-disabled');
+            $('#js-btn-next').attr('disabled', false);
+          } else {
+            $('#js-btn-next').addClass('-disabled');
+            $('#js-btn-next').attr('disabled', true);
+          }
+          
+
+          
+        });
+
+        $(document).on('click', '.question__input', function() {
+          let qNum = $(this).data('num');
+          $(`.question-palette__item[data-num="${qNum}"]`).click();
+        });
+
+        $(document).on('change', '.question__input', function() {
+
+          if($('.js-attempt-only-reading').length > 0 || $('.js-attempt-only-listening').length > 0){
+
+            let qNum      = $(this).data('num');
+            let inputType = $(this).data('input_type');
+            $(`.question-palette__item[data-num="${qNum}"]`).click();
+            
+
+            if( inputType === "select"){
+              if($(this).val() !== ""){
+                $(`.question-palette__item[data-num="${qNum}"]`).addClass('-checked');
+              } else {
+                $(`.question-palette__item[data-num="${qNum}"]`).removeClass('-checked');
+              }
+            } else if(inputType === "fillup"){
+              
+              if($(this).val() !== "" || $(this).val().trim().length > 0){
+                $(`.question-palette__item[data-num="${qNum}"]`).addClass('-checked');
+              } else {
+                $(`.question-palette__item[data-num="${qNum}"]`).removeClass('-checked');        
+              }
+
+            } else if(inputType === "radio"){
+              if($(`[name="q-${qNum}"]:checked`).length > 0){
+                $(`.question-palette__item[data-num="${qNum}"]`).addClass('-checked');
+              } else {
+                $(`.question-palette__item[data-num="${qNum}"]`).removeClass('-checked'); 
+              }
+            }
+
+            let pNum            = $(`.question-palette__item[data-num="${qNum}"]`).data('p');
+            
+            if(document.querySelector(`#navigation-bar-${pNum}`)){
+              let totalAttempted  = document.querySelector(`#navigation-bar-${pNum}`).querySelectorAll('.question-palette__item.-checked').length;
+              if(document.querySelector(`#navigation-bar-${pNum}`).querySelector('.number')){
+                document.querySelector(`#navigation-bar-${pNum}`).querySelector('.number').innerHTML = totalAttempted;
+              }
+            }
+
+          }
+
+        });
+
+        $(document).on('click', '#js-btn-previous', function(event) {
+          if($(`.question-palette__item.is-selected`).length > 0){
+            let cNum = $(`.question-palette__item.is-selected`).data('num');
+            $(`.question-palette__item[data-num="${(+cNum-1)}"]`).click();
+          }
+        });
+
+        $(document).on('click', '#js-btn-next', function(event) {
+          if($(`.question-palette__item.is-selected`).length > 0){
+            // get current selected number
+            let cNum = $(`.question-palette__item.is-selected`).data('num');
+            let pNum = $(`.question-palette__item.is-selected`).data('p');
+            // get next selected num and tigger it
+            $(`.question-palette__item[data-num="${(+cNum+1)}"]`).click();
+            
+          }
+        });
+
+        
+        window.CountDownTimer = function (duration, duration_default, granularity) {
+          this.duration = duration;
+          this.granularity = granularity || 1000;
+          this.tickFtns = [];
+          this.running = false;
+          this.pending = false;
+          this.diff = parseInt(duration);
+          this.duration_default = duration_default;
+        }
+
+        window.CountDownTimer.prototype.start = function () {
+          if (this.running) {
+            return;
+          }
+
+          this.running = true;
+          var start = Date.now(),
+            that = this,
+            diff, obj;
+
+          (function timer() {
+            if (that.pending) {
+              return;
+            }
+            var obj_default = window.CountDownTimer.parse(that.duration_default);
+            if (that.duration_default == 0) {
+              diff = parseInt(that.duration) + (((Date.now() - start) / 1000) | 0);
+              if (diff >= 0) {
+                setTimeout(timer, that.granularity);
+              }
+              obj = window.CountDownTimer.parse(diff);
+              var time_over = that.duration_default + diff;
+              that.diff = window.CountDownTimer.parse(time_over);
+            }
+            else {
+              diff = that.duration - (((Date.now() - start) / 1000) | 0);
+              if (diff > 0) {
+                setTimeout(timer, that.granularity);
+              }
+              else {
+                diff = 0;
+                that.running = false;
+              }
+              obj = window.CountDownTimer.parse(diff);
+              var time_over = that.duration_default - diff;
+              that.diff = window.CountDownTimer.parse(time_over);
+            }
+
+            that.tickFtns.forEach(function (ftn) {
+              ftn.call(this, obj.minutes, obj.seconds, obj_default.minutes);
+            }, that);
+          }());
+        };
+
+        window.CountDownTimer.prototype.onTick = function (ftn) {
+          if (typeof ftn === 'function') {
+            this.tickFtns.push(ftn);
+          }
+          return this;
+        };
+
+        window.CountDownTimer.prototype.expired = function () {
+          return !this.running;
+        };
+
+        window.CountDownTimer.prototype.timecurrent = function () {
+          return this.diff;
+        };
+        window.CountDownTimer.prototype.pendingTime = function () {
+          this.pending = true;
+        }
+        window.CountDownTimer.parse = function (seconds) {
+          return {
+            'minutes': (seconds / 60) | 0,
+            'seconds': (seconds % 60) | 0
+          };
+        };
+
+
+        function formatClockTime(minutes, seconds, minutes_default) {
+          minutes = minutes < 10 ? "0" + minutes : minutes;
+          seconds = seconds < 10 ? seconds : seconds;
+          var timeValue = minutes >= 1 ? minutes : seconds;
+          var timeText = minutes >= 1 ? 'minutes remaining' : 'seconds remaining';
+          if (minutes < 1) {
+            $('.realtest-header').addClass('time-up');
+          }
+          if (elmDisplay) {
+            if (parseInt(minutes) < parseInt(minutes_default) &&  parseInt(minutes) >= 1) {
+              if (parseInt(seconds) == 0 &&  parseInt(minutes) == 1) {
+                timeValue = "01";
+              }
+              else {
+                timeValue = parseInt(minutes) + 1;
+                if (parseInt(minutes) < 9) {
+                  timeValue = "0" + timeValue;
+                }
+              }
+            }
+            elmDisplay.innerHTML = '<span class="realtest-header__time-val">' + timeValue + '</span>' + '<span class="realtest-header__time-text">' + timeText + '</span>';
+          }
+        }
+
+        var timeEndReading = function () {
+          if (this.expired()) {
+            var mode = 'practice_test';
+            $('body').addClass('-test_time-up');
+            if (mode == 'practice_test') {
+              if ($('.question-palette__item.-checked').length) {
+                  $('#modal-time-up').modal('show');
+              } else {
+                  $('#modal-time-up-no-taketest').modal('show');
+              }
+            } else if (mode == 'simulation_test') {
+              if ($('.question-palette__item.-checked').length) {
+                //Drupal.postDataTest();
+              } else {
+                $('#modal-time-up-no-taketest').modal('show');
+              }
+            } else {
+              //Drupal.postDataTest()
+            }
+          }
+        };   
+        
+
+
+        // End countdown timer prototype
+        // Run time clock.
+        window.runTimeClock = function (timeEndCallback) {
+          var elmDisplay = document.querySelector('#time-clock');
+          if (elmDisplay) {
+            var timeDuration = elmDisplay.dataset.time,
+              timeDurationDefault = elmDisplay.dataset.durationDefault;
+
+            timer = new window.CountDownTimer(timeDuration, timeDurationDefault);
+            var timeObj = window.CountDownTimer.parse(timeDuration);
+            formatClockTime(timeObj.minutes, timeObj.seconds, timeObj.minutes);
+            timer.onTick(formatClockTime);
+            // Provided custom callback function will be called at timer end.
+            if (typeof timeEndCallback === 'function') {
+              timer.onTick(timeEndCallback);
+            }
+            else {
+              timer.onTick(timeEnd);
+            }
+            timer.onTick(timeTakeTest);
+            timer.start();
+          }
+
+          function timeEnd() {
+            if (this.expired()) {
+              // showTimeIsUpModal();
+            }
+          }
+
+          function timeEndAlertModal() {
+            if (this.expired()) {
+              console.log('Time is up! please write your function to submit form here.')
+            }
+          }
+
+          // Save time current to local storage.
+          function timeTakeTest() {
+            var timecurrent = this.timecurrent();
+            var minutes = timecurrent.minutes < 10 ? "0" + timecurrent.minutes : timecurrent.minutes;
+            var seconds = timecurrent.seconds < 10 ? "0" + timecurrent.seconds : timecurrent.seconds;
+            if (timecurrent === undefined) {
+              return;
+            }
+            /*
+            var taketest_string = window.getCookie('taketest');
+            if (!taketest_string) {
+              return;
+            }
+            */
+            //localStorage.setItem("practice_" + quiz_id + '_timecurrent', minutes + ':' + seconds);
+          }
+
+          // Set flag default for time clock.
+          function formatClockTime(minutes, seconds, minutes_default) {
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? seconds : seconds;
+            var timeValue = minutes >= 1 ? minutes : seconds;
+            var timeText = minutes >= 1 ? 'minutes remaining' : 'seconds remaining';
+            if (minutes < 1) {
+              $('.realtest-header').addClass('time-up');
+            }
+            if (elmDisplay) {
+              if (parseInt(minutes) < parseInt(minutes_default) &&  parseInt(minutes) >= 1) {
+                if (parseInt(seconds) == 0 &&  parseInt(minutes) == 1) {
+                  timeValue = "01";
+                }
+                else {
+                  timeValue = parseInt(minutes) + 1;
+                  if (parseInt(minutes) < 9) {
+                    timeValue = "0" + timeValue;
+                  }
+                }
+              }
+              elmDisplay.innerHTML = '<span class="realtest-header__time-val">' + timeValue + '</span>' + '<span class="realtest-header__time-text">' + timeText + '</span>';
+            }
+          }
+
+          function formatEndTimeAlert(minutes, seconds) {
+            var countDownText = document.getElementById("js-countdown-text");
+            var seconds = seconds;
+            timeDisplayElm.textContent = seconds;
+            countDownText.textContent = seconds <= 1 ? "sec" : "secs";
+          }
+
+          function showTimeIsUpModal() {
+            $("#modal-time-up").modal({ backdrop: 'static', keyboard: false });
+            timeDisplayElm = document.querySelector('#js-countdown-number');
+            if (timeDisplayElm) {
+              var timeDuration = timeDisplayElm.dataset.time,
+                timer = new window.CountDownTimer(timeDuration),
+                timeObj = window.CountDownTimer.parse(timeDuration);
+              formatEndTimeAlert(timeObj.minutes, timeObj.seconds);
+              timer.onTick(formatEndTimeAlert);
+              timer.onTick(timeEndAlertModal);
+              timer.start();
+            }
+          }
+        }
+        window.pendingTimeClock = function () {
+          // Stop time clock.
+          timer.pendingTime();
+        }
+        // End function countdown timer.
+        // --------------------------------
+
+
+
+        // review questions answers
+        $(document).on('click', '.js-attempt-only-reading .realtest-header__bt-review', function(){
+            var target = $(this).data('target');
+            var confirm = window.updateAnsweredQuestions();
+            if( confirm !== null ) {
+              $(target).modal('show');
+            }
+        });
+
+        $(document).on('click', '.js-attempt-only-listening .realtest-header__bt-review', function(){
+            var target = $(this).data('target');
+            var confirm = window.updateAnsweredQuestions();
+            if( confirm !== null ) {
+              $(target).modal('show');
+            }
+        });
+
+
+        window.updateAnsweredQuestions = function () {
+          if ($('.question-palette__item').length) {
+            var answers = {}
+            var totalAnswered = 0;
+            var count_questions = $('.question-palette__item').length;
+            var count_questions_not_answered = $('.question-palette__item:not(.-checked)').length;
+            var count_questions_answered = count_questions - count_questions_not_answered;
+            // Get all answered questions.
+            $('.question-palette__item').each(function (index, el) {
+                // $('.modal-review-test__table .result-table').find('[data-num="' + $(this).data('num') + '"] em').text(answer);
+                var qNum = $(el).data('num');
+                var pNum = $(el).data('p');
+                
+                if($(`.question__input[data-num="${qNum}"][data-part="${pNum}"]`).length > 0){
+                  
+
+                  let qInput      = $(`.question__input[data-num="${qNum}"][data-part="${pNum}"]`);
+                  let q_num        = qInput.data('num');
+                  let p_num        = qInput.data('part');
+                  let input_type  = qInput.data('input_type');
+                  let q_type      = qInput.data('q_type');
+
+                  
+
+                  if(input_type === "select"){
+                    
+                      if(qInput.val() !== ""){
+                        answers[q_num] = {
+                          qNum: q_num,
+                          pNum: p_num,
+                          input_type: input_type,
+                          q_type: q_type,
+                          answer: qInput.val(),
+                          class: '-checked'
+                        };
+
+                        $(`.question-palette__item[data-num="${qNum}"][data-p="${pNum}"]`).addClass('-checked');
+                        $(`.result-table .result-table__col[data-num="${qNum}"][data-p="${pNum}"] em`).text(qInput.val().trim());
+                      } else {
+                        answers[qNum] = {
+                          qNum: qNum,
+                          pNum: pNum,
+                          input_type: input_type,
+                          q_type: q_type,
+                          answer: '',
+                          class: '-unchecked'
+                        };
+                        $(`.question-palette__item[data-num="${qNum}"][data-p="${pNum}"]`).removeClass('-checked');
+                        $(`.result-table .result-table__col[data-num="${qNum}"][data-p="${pNum}"] em`).text("");
+                      }
+                  } else if(input_type === "fillup"){
+                      if(qInput.val() !== "" || qInput.val().trim().length > 0){
+                        answers[q_num] = {
+                          qNum: q_num,
+                          pNum: p_num,
+                          input_type: input_type,
+                          q_type: q_type,
+                          answer: qInput.val(),
+                          class: '-checked'
+                        };
+
+                        $(`.question-palette__item[data-num="${qNum}"][data-p="${pNum}"]`).addClass('-checked');
+                        $(`.result-table .result-table__col[data-num="${qNum}"][data-p="${pNum}"] em`).text(qInput.val().trim());
+                      } else {
+                        answers[qNum] = {
+                          qNum: qNum,
+                          pNum: pNum,
+                          input_type: input_type,
+                          q_type: q_type,
+                          answer: '',
+                          class: '-unchecked'
+                        };
+                        $(`.question-palette__item[data-num="${qNum}"][data-p="${pNum}"]`).removeClass('-checked');
+                        $(`.result-table .result-table__col[data-num="${qNum}"][data-p="${pNum}"] em`).text("");
+                      }
+
+                  } else if(input_type === "radio"){
+                    console.log(input_type,$(`[name="q-${qNum}"]:checked`));
+                    if($(`[name="q-${qNum}"]:checked`).length > 0){
+                        answers[qNum] = {
+                          qNum: qNum,
+                          pNum: pNum,
+                          input_type: input_type,
+                          q_type: q_type,
+                          answer: $(`[name="q-${qNum}"]:checked`).val(),
+                          class: '-checked'
+                        };
+
+                        $(`.question-palette__item[data-num="${qNum}"][data-p="${pNum}"]`).addClass('-checked');
+                        $(`.result-table .result-table__col[data-num="${qNum}"][data-p="${pNum}"] em`).text($(`[name="q-${qNum}"]:checked`).val());
+                      } else {
+                        answers[qNum] = {
+                          qNum: qNum,
+                          pNum: pNum,
+                          input_type: input_type,
+                          q_type: q_type,
+                          answer: '',
+                          class: '-unchecked'
+                        };
+                        $(`.question-palette__item[data-num="${qNum}"][data-p="${pNum}"]`).removeClass('-checked');
+                        $(`.result-table .result-table__col[data-num="${qNum}"][data-p="${pNum}"] em`).text("");
+                      }
+                  }
+
+                }
+            });
+
+            console.info(answers);
+
+            return answers;
+
+
+            
+          }
+
+        };
+
+        // submit popup modal display
+        $(document).on('click', '.js-attempt-only-reading .realtest-header__bt-submit ', function(){
+          var time_duration_default = $('#time-clock').data('duration-default');
+          if (time_duration_default == 0) {
+            if ($('.question-palette__item.-checked').length) {
+              $('#modal-submit-test').modal('show');
+            } else {
+              $('#modal-do-not-work-lr').modal('show');
+            }
+          } else {
+            if ($('.question-palette__item.-checked').length) {
+              $('#modal-submit-test').modal('show');
+            } else {
+              $('#modal-do-not-work-lr').modal('show');
+            }
+          }
+        });
+
+
+        // submit answers
+        $(document).on('click','.js-attempt-only-reading #modal-submit-test__btn', function(){
+            let answers = window.updateAnsweredQuestions();
+            var quizId        = $(this).data('id');
+            var quizCategory  = $(this).data('category');
+            localStorage.setItem('review_solution-'+quizId, JSON.stringify({ _id: quizId, category: quizCategory, answers: answers }));
+            window.open("/preview/ielts/solution/"+quizCategory+"/"+quizId, '_blank');
+            
+        });
+
+
+        // submit popup modal display
+        $(document).on('click', '.js-attempt-only-listening .realtest-header__bt-submit ', function(){
+          var time_duration_default = $('#time-clock').data('duration-default');
+          if (time_duration_default == 0) {
+            if ($('.question-palette__item.-checked').length) {
+              $('#modal-submit-test').modal('show');
+            } else {
+              $('#modal-do-not-work-lr').modal('show');
+            }
+          } else {
+            if ($('.question-palette__item.-checked').length) {
+              $('#modal-submit-test').modal('show');
+            } else {
+              $('#modal-do-not-work-lr').modal('show');
+            }
+          }
+        });
+
+
+        // submit answers
+        $(document).on('click','.js-attempt-only-listening #modal-submit-test__btn', function(){
+            let answers = window.updateAnsweredQuestions();
+            var quizId        = $(this).data('id');
+            var quizCategory  = $(this).data('category');
+            localStorage.setItem('review_solution-'+quizId, JSON.stringify({ _id: quizId, category: quizCategory, answers: answers }));
+            window.open("/preview/ielts/solution/"+quizCategory+"/"+quizId, '_blank');
+            
+        });
+
+
+
+
+
+        function runTestPanelNiceScroll() {
+          
+          var windowWidth = $(window).width();
+          var elements = $('.test-panel, .test-contents');
+          if (windowWidth > 1024) {
+            elements.niceScroll({
+              autohidemode: false,
+              cursorborderradius: 6,
+              cursorwidth: "8px",
+              cursorcolor: "#dfdfdf",
+              horizrailenabled: false,
+            });
+            initNiceScroll = true;
+          } else {
+            elements.each(function(index, el) {
+              $(el).getNiceScroll().remove();
+              initNiceScroll = false;
+            });
+          }
+        }
+        window.runTestPanelNiceScroll = runTestPanelNiceScroll;
+      });
+    </script>
+    <script>
+      window.preload = () => {
+      jQuery(document).ready(function($){
+
+
+        var tooltipVisible = false;
+        var noteInput = $('#js-note-content');
+        var highlightTooltip = $('#highlight-box');
+        var highlighterContent = $('#highlighter-contents');
+        
+        var NoteIds = [];
+        var newAddedNote = 0;
+        var notes = [];
+        var noteSerialized = {};
+        var initNiceScroll = false;
+
+        // --------------------------------
+          // NOTE/HIGHLIGHT FUNCTIONS
+          function getQuizId() {
+              return 'practice_test';
+          }
+
+          // (Notepad) Setup note - Black out the text show active note and highlight.
+          function setupNoteApp() {
+            // var quizID = getQuizId();
+            // // let notes = [];
+            // // Check if localstorage contains any data
+            // const localData = localStorage.getItem('notes_' + quizID);
+            // // Retrieve the list of notes from localstorage
+            // if (localData) {
+            //   notes = JSON.parse(localData);
+            // }
+            //
+            // if (notes && notes.length > 0) {
+            //   // Display the saved notes
+            //   renderNotes();
+            // }
+
+            // Handle "input" event on the search input
+            $('#note-search').on('input', function () {
+              const searchTerm = $(this).val().trim().toLowerCase();
+              if (searchTerm === '') {
+                // If the search term is empty, display the original notes
+                $('#search-results').empty();
+                $('#notes-container').show();
+                renderNotes();
+              }
+              else {
+                const filteredNotes = filterNotes(searchTerm);
+
+                // Render the filtered notes
+                renderSearchResults(filteredNotes);
+              }
+            });
+
+            function filterNotes(searchTerm) {
+              // Filter notes that contain the search term in either selectedText or
+              // noteText
+              return notes.filter((note) => {
+                const selectedText = note.selectedText.toLowerCase();
+                const noteText = note.noteText.toLowerCase();
+
+                return selectedText.includes(searchTerm) || noteText.includes(searchTerm);
+              });
+            }
+
+            function renderSearchResults(searchResults) {
+              const searchResultsContainer = $('#search-results');
+              searchResultsContainer.empty();
+
+              if (searchResults.length > 0) {
+                $.each(searchResults, function (index, note) {
+                  const searchResultDiv = `
+                  <div class="notepad__item" data-note-id="${note.id}" data-note-part="${note.noteOfPart}"  data-ref-id="${note.noteRefId}">
+                    <div class="notepad__item-title">${note.selectedText}</div>
+                    <div class="notepad__item-content-wrap">
+                      <div class="notepad__item-content">${note.noteText}</div>
+                    </div>
+                    <span class="notepad__item-more">
+                      <span class="notepad__item-more-icon ioticon-more-vertical"></span>
+                      <span class="notepad__more-card">
+                        <span class="notepad__more-item-row -edit">Edit <span class="notepad__more-item-icon ioticon-edit"></span></span>
+                        <span class="notepad__more-item-row">
+                          Delete <span class="notepad__more-item-icon ioticon-trash-3 -delete"></span>
+                          <span class="notepad__delete-confirm">Are you sure to delete this note?
+                            <span class="notepad__text-confirm-wrap">
+                              <span class="notepad__text-confirm -delete" data-id="${note.id}">Yes</span>
+                              <span class="notepad__text-confirm -cancel">No</span>
+                            </span>
+                          </span>
+                        </span>
+                      </span>
+                    </span>
+                  </div>
+                `;
+
+                  // Add search results with delete and cancel function
+                  const searchResultElement = $(searchResultDiv);
+                  searchResultsContainer.prepend(searchResultElement);
+                });
+                $('#notes-container').hide();
+              }
+              else {
+                const noResultsDiv = `<div class="notepad__no-results">No matching note found.</div>`;
+                searchResultsContainer.append(noResultsDiv);
+              }
+            }
+
+            function deleteNote(noteId) {
+              // Find a note by its unique ID.
+              const noteIndex = notes.findIndex(note => note.id === noteId);
+              if (noteIndex !== -1) {
+                // Remove a note from the notes array using the found index.
+                notes.splice(noteIndex, 1);
+
+                // Save the notes array to local storage.
+                // localStorage.setItem('notes_' + quizID, JSON.stringify(notes));
+
+                // Display the search results again.
+                const searchTerm = $('#note-search').val().trim().toLowerCase();
+                if (searchTerm === '') {
+                  $('#search-results').empty();
+                  $('#notes-container').show();
+                  renderNotes();
+                }
+                else {
+                  const filteredNotes = filterNotes(searchTerm);
+                  renderSearchResults(filteredNotes);
+                }
+              }
+            }
+
+            function scrollToNotedItem(refItemId, noteOfPart) {
+              if ($(`.noted.${refItemId}`).length) {
+                if ($('.question-palette__part.-active').data('part') != noteOfPart) {
+                  $('.question-palette__part[data-part="' + noteOfPart + '"]').trigger('click', false);
+                  highlighterContent.on('transitionend', function () {
+                    $(`.noted.${refItemId}`)[0].scrollIntoView({
+                      behavior: 'smooth',
+                      block: 'center'
+                    });
+                    highlighterContent.off('transitionend');
+                  });
+                }
+                else {
+                  $(`.noted.${refItemId}`)[0].scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center'
+                  });
+                }
+              }
+            }
+
+            // Handle click event on "Save" button
+            $('#save-note').click(function () {
+              saveNote();
+            });
+
+            // Event delegation for handling delete and cancel click events
+            $(document).on('click', '.notepad__item-more', function (event) {
+              $('.notepad__item-more').removeClass('active');
+              $(this).toggleClass('active');
+            });
+
+            $(document).on('click', '.notepad__text-confirm.-delete', function (event) {
+              const noteId = $(this).closest('.notepad__item').data('noteId');
+              const refNoteId = $(this).closest('.notepad__item').data('refId');
+              deleteNote(noteId);
+              removeNoteOnTestPanel(refNoteId)
+            });
+
+            $(document).on('click', '.notepad__delete-confirm', function (event) {
+              event.stopPropagation();
+            });
+
+            $(document).on('click', '.notepad__item-title', function (event) {
+              event.stopPropagation();
+              var itemNote = $(this).closest('.notepad__item');
+              var refItemId = itemNote.data('refId');
+              var noteOfPart = itemNote.data('notePart');
+              scrollToNotedItem(refItemId, noteOfPart);
+            });
+
+            $(document).on('click', '.notepad__more-item-row.-edit', function (event) {
+              var editableDiv = $(this).closest('.notepad__item').find('.notepad__item-content');
+              var editableDivWrap = $(this).closest('.notepad__item').find('.notepad__item-content-wrap');
+              var noteId = $(this).closest('.notepad__item').data('noteId');
+              var btnEditTemplate = `<div class="notepad__btns-edit">
+                                      <button class="notepad__btn-cancel iot-grbt -white">Cancel</button>
+                                      <button class="notepad__btn-save iot-grbt" data-note-id="${noteId}">Save</button>
+                                    </div>`;
+
+              originalNoteContent = editableDiv.text();
+              $(this).closest('.notepad__item-more').removeClass('active');
+              editableDiv.attr("contentEditable", "true").focus();
+              editableDivWrap.append(btnEditTemplate);
+              $('#notes-container').getNiceScroll().resize();
+            });
+
+            $(document).on('click', '.notepad__btn-cancel', function (event) {
+              var editableDiv = $(this).closest('.notepad__item').find('.notepad__item-content');
+              editableDiv.text(originalNoteContent).attr("contentEditable", "false");
+              $(this).closest('.notepad__btns-edit').remove();
+            });
+
+            $(document).on('click', '.notepad__btn-save', function (event) {
+
+              const noteId = $(this).data('note-id');
+              const updatedContent = $(this).closest('.notepad__item').find('.notepad__item-content').text().trim();
+
+              // Find the note by its unique ID.
+              const noteIndex = notes.findIndex(note => note.id === noteId);
+
+              if (noteIndex !== -1) {
+                // Update the note's content.
+                notes[noteIndex].noteText = updatedContent;
+
+                // Save the updated notes array to local storage.
+                // localStorage.setItem('notes_' + quizID, JSON.stringify(notes));
+
+                // Optionally, you can re-render the notes to display the updated
+                // content.
+                renderNotes();
+              }
+
+              $(this).closest('.notepad__item-content-wrap').find('.notepad__item-content').attr("contentEditable", "false");
+              $(this).closest('.notepad__btns-edit').remove();
+
+            });
+
+            $(document).on('click', '.notepad__more-item-row', function (event) {
+              event.stopPropagation();
+              $(this).toggleClass('active');
+              const confirmDeleteElm = this.querySelector('.notepad__delete-confirm');
+              const confirmEditElm = this.closest(".notepad__item").querySelector('.notepad__item-content-wrap');
+              document.addEventListener('click', clickDeleteItemHandler);
+              document.addEventListener('click', clickEditItemHandler);
+
+              function clickDeleteItemHandler(event) {
+
+                if (confirmDeleteElm) {
+                  const isInsideConfirmDeleteElm = confirmDeleteElm.contains(event.target);
+                  if (!isInsideConfirmDeleteElm) {
+                    document.removeEventListener('click', clickDeleteItemHandler);
+                    $(confirmDeleteElm).closest('.notepad__item-more').removeClass('active');
+                    $(confirmDeleteElm).closest('.notepad__more-item-row').removeClass('active');
+                  }
+                  else {
+                    if ($(event.target).is('.notepad__text-confirm')) {
+                      document.removeEventListener('click', clickDeleteItemHandler);
+                    }
+                  }
+                }
+              }
+
+              function clickEditItemHandler(event) {
+
+                if (confirmEditElm) {
+                  const isInsideConfirmEditElm = confirmEditElm.contains(event.target);
+                  if (!isInsideConfirmEditElm) {
+                    document.removeEventListener('click', clickEditItemHandler);
+                    $('.notepad__btns-edit').remove();
+                    $('.notepad__item-content').attr("contentEditable", "false");
+                  }
+                  else {
+                    if ($(event.target).is('.iot-grbt')) {
+                      document.removeEventListener('click', clickEditItemHandler);
+                    }
+                  }
+                }
+              }
+            });
+
+            document.addEventListener('click', function (event) {
+              const moreNote = document.querySelector('.notepad__item-more.active');
+              if (moreNote) {
+                const isClickInsideMoreNote = moreNote.contains(event.target);
+                if (!isClickInsideMoreNote) {
+                  $(moreNote).removeClass('active')
+                }
+              }
+            });
+
+            $(document).on('click', '.notepad__text-confirm.-cancel', function (event) {
+              event.stopPropagation();
+              $(this).closest('.notepad__item-more').removeClass('active');
+              $(this).closest('.notepad__more-item-row').removeClass('active');
+            });
+
+            function saveNote() {
+              const inputTextarea = $('#user-note-input');
+              const noteText = inputTextarea.val().trim();
+              const selectedText = noteString;
+              const noteOfPart = $('.question-palette__part.-active').data('part');
+              const noteRefId = $('#js-note-content').data('id');
+
+              if (noteText && selectedText) {
+                // Create a new note object
+                const newNote = {
+                  selectedText: selectedText,
+                  noteText: noteText,
+                  noteOfPart: noteOfPart,
+                  noteRefId: noteRefId
+                };
+
+                // Add the note to the notes array
+                notes.push(newNote);
+
+                // Save the notes array to local storage
+                // localStorage.setItem('notes_' + quizID, JSON.stringify(notes));
+
+                // Render the notes again
+                renderNotes();
+
+                // Clear the textarea content
+                inputTextarea.val('');
+                noteString = '';
+
+                // Hide the tooltip
+                hideHighlightTooltip();
+
+                //toggle new note status icon
+                newAddedNote += 1;
+                checkNewNote();
+              }
+            }
+
+          }
+
+          function checkNewNote() {
+            if (newAddedNote > 0) {
+              $('#js-bt-notepad').addClass('active');
+            }
+            else {
+              $('#js-bt-notepad').removeClass('active');
+            }
+          }
+
+          function removeNoteOnTestPanel(noteId) {
+            // Ensure all highlights are serialised first!
+            NoteIds.forEach(function (noteId) {
+              noteSerialized[noteId] = userNote.serializeHighlights(noteId);
+            });
+
+            if (noteId) {
+              userNote.removeHighlights(null, noteId);
+              NoteIds = NoteIds.filter((id) => id !== noteId);
+            }
+            hideHighlightTooltip();
+          }
+
+          function renderNotes() {
+            const notesContainer = $('#notes-container');
+            if (notesContainer.length) {
+              notesContainer.empty();
+
+              $.each(notes, function (index, note) {
+                const noteId = uuidv4(); // Create a unique ID for each note.
+                note.id = noteId; // Save the ID into the note.
+                const noteDiv = `
+                  <div class="notepad__item" data-note-id="${noteId}" data-note-part="${note.noteOfPart}" data-ref-id="${note.noteRefId}">
+                    <div class="notepad__item-title">${note.selectedText}</div>
+                    <div class="notepad__item-content-wrap">
+                      <div class="notepad__item-content">${note.noteText}</div>
+                    </div>
+                    <span class="notepad__item-more">
+                      <span class="notepad__item-more-icon ioticon-more-vertical"></span>
+                      <span class="notepad__more-card">
+                        <span class="notepad__more-item-row -edit">Edit <span class="notepad__more-item-icon ioticon-edit"></span></span>
+                        <span class="notepad__more-item-row">
+                          Delete <span class="notepad__more-item-icon ioticon-trash-3 -delete"></span>
+                          <span class="notepad__delete-confirm">Are you sure to delete this note?
+                            <span class="notepad__text-confirm-wrap">
+                              <span class="notepad__text-confirm -delete" data-id="${noteId}">Yes</span>
+                              <span class="notepad__text-confirm -cancel">No</span>
+                            </span>
+                          </span>
+                        </span>
+                      </span>
+                    </span>
+                  </div>
+                `;
+
+                notesContainer.prepend(noteDiv);
+              });
+            }
+          }
+
+          function initNote() {
+            var quizID = getQuizId();
+            if (highlighterContent.length) {
+              var sandbox = document.getElementById("highlighter-contents");
+              window.userNote = new TextHighlighter(sandbox, {
+                version: "independencia",
+                useDefaultEvents: false,
+                color: "var(--main-color)",
+                highlightedClass: 'noted',
+                preprocessDescriptors: function (range, descriptors) {
+                  var uniqueId = "hlt-" + Math.random()
+                      .toString(36)
+                      .substring(2, 15) +
+                    Math.random()
+                      .toString(36)
+                      .substring(2, 15);
+                  NoteIds.push(uniqueId);
+                  addNoteId(uniqueId)
+                  var descriptorsWithIds = descriptors.map(function (descriptor) {
+                    var wrapper = descriptor[0];
+                    var highlightedText = descriptor[1];
+                    var offset = descriptor[2];
+                    var length = descriptor[3];
+                    var timestamp = $(wrapper).data('timestamp');
+                    addNoteTimestamp(timestamp);
+                    noteString = descriptor[1];
+                    return [
+                      wrapper.replace(
+                        'class="noted"',
+                        "class=\"noted " + uniqueId + "\"" + " id=\"" + uniqueId + "\""
+                      ),
+                      highlightedText,
+                      offset,
+                      length
+                    ];
+                  });
+                  return { descriptors: descriptorsWithIds, meta: { id: uniqueId } };
+                },
+              });
+
+              $("#user-note-input").on("blur", function () {
+                if (previousRange) {
+                  // Select the previous region again
+                  var selection = window.getSelection();
+                  selection.removeAllRanges();
+                  selection.addRange(previousRange);
+                }
+              });
+
+              highlighterContent.on("mouseup", function () {
+                var selection = window.getSelection();
+               
+                if (selection.rangeCount > 0) {
+                  var range = selection.getRangeAt(0);
+                  var selectedText = getSelectedText();
+                  if (selectedText !== "") {
+                    showHighlightControl(range);
+                    // Update the previous selection with the new selection
+                    previousRange = range.cloneRange();
+                  }
+                  else {
+                    // If there is no new selection, set previousRange to null.
+                    previousRange = null;
+                  }
+                }
+              });
+
+              $(document).on('click', '#js-remove-note', function (event) {
+                // Ensure all highlights are serialised first!
+                NoteIds.forEach(function (noteId) {
+                  noteSerialized[noteId] = userNote.serializeHighlights(noteId);
+                });
+
+                var noteId = $(this).data('id');
+                if (noteId) {
+                  userNote.removeHighlights(null, noteId);
+                  NoteIds = NoteIds.filter((id) => id !== noteId)
+                  deleteNote(noteId);
+                }
+                hideHighlightTooltip();
+                newAddedNote -= 1;
+                checkNewNote();
+              });
+
+              function deleteNote(noteId) {
+                var noteRefId = $('[data-ref-id="' + noteId + '"]').data('noteId');
+                // Find a note by its unique ID.
+                const noteIndex = notes.findIndex(note => note.id === noteRefId);
+                if (noteIndex !== -1) {
+                  // Remove a note from the notes array using the found index.
+                  notes.splice(noteIndex, 1);
+
+                  // Save the notes array to local storage.
+                  // localStorage.setItem('notes_' + quizID, JSON.stringify(notes));
+
+                  // Display the search results again.
+                  const searchTerm = $('#note-search').val().trim().toLowerCase();
+                  if (searchTerm === '') {
+                    $('#search-results').empty();
+                    $('#notes-container').show();
+                    renderNotes();
+                  }
+                  else {
+                    const filteredNotes = filterNotes(searchTerm);
+                    renderSearchResults(filteredNotes);
+                  }
+                }
+              }
+
+              function getSelectedText() {
+                if (window.getSelection) {
+                  return window.getSelection().toString();
+                }
+                else if (document.selection && document.selection.type != "Control") {
+                  return document.selection.createRange().text;
+                }
+                return "";
+              }
+
+              function addNoteTimestamp(timestamp) {
+                $('#js-note-content').data('timestamp', timestamp);
+                noteTimestamp = timestamp;
+              }
+
+              function addNoteId(uniqueId) {
+                $('#js-note-content').data('id', uniqueId);
+              }
+
+              clickOutNotetHandler = function clickOutNotetHandler(event) {
+
+                if (!highlightTooltip.is(event.target) && highlightTooltip.has(event.target).length === 0) {
+                  hideHighlightTooltip();
+
+                  cancelNote(noteTimestamp);
+                }
+              }
+
+              function addClassSavedNote(timestamp) {
+                $(`[data-timestamp="${timestamp}"]`).each(function (index, el) {
+                  $(this).addClass('saved-note');
+                });
+              }
+
+              function replaceNoteToHightlight(timestamp) {
+                $(`[data-timestamp="${timestamp}"]`).each(function (index, el) {
+                  $(this).removeClass('noted').addClass('highlighted');
+
+                  const currentClass = $(this).attr('class');
+                  const newClass = currentClass.replace(/note-up/g, 'hltr-');
+                  $(this).attr('class', newClass);
+                });
+              }
+
+              $('#cancel-note').on('click', function (event) {
+                var timestamp = $('#js-note-content').data('timestamp');
+                cancelNote(timestamp);
+              });
+
+              $('#save-note').on('click', function (event) {
+                var timestamp = $('#js-note-content').data('timestamp');
+                addClassSavedNote(timestamp);
+              });
+
+              // const highlightHandler = hltr.highlightHandler.bind(hltr);
+              const noteHandler = () => userNote.highlightHandler();
+
+              $('#js-btn-note').on("click", function () {
+                noting = true;
+                noteHandler();
+                $(document).on('click', '#highlighter-contents', clickOutNotetHandler);
+              });
+
+              $('#js-btn-highlight').on('click', function (event) {
+                if (noting) {
+                  var timestamp = $('#js-note-content').data('timestamp');
+                  replaceNoteToHightlight(timestamp);
+                }
+              });
+            }
+
+          }
+
+          function initHighlighter() {
+            if (highlighterContent.length) {
+              var highlightIds = [];
+              var sandbox = document.getElementById("highlighter-contents");
+              var removeHighlightBtn = document.getElementById("js-remove-highlight");
+              window.hltr = new TextHighlighter(sandbox, {
+                version: "independencia",
+                useDefaultEvents: false,
+                preprocessDescriptors: function (range, descriptors) {
+                  var uniqueId = "hlt-" + Math.random()
+                      .toString(36)
+                      .substring(2, 15) +
+                    Math.random()
+                      .toString(36)
+                      .substring(2, 15);
+                  highlightIds.push(uniqueId);
+
+                  var descriptorsWithIds = descriptors.map(function (descriptor) {
+                    var wrapper = descriptor[0];
+                    var highlightedText = descriptor[1];
+                    var offset = descriptor[2];
+                    var length = descriptor[3];
+
+                    return [
+                      wrapper.replace(
+                        'class="highlighted"',
+                        "class=\"highlighted " + uniqueId + "\"" + " id=\"" + uniqueId + "\""
+                      ),
+                      highlightedText,
+                      offset,
+                      length
+                    ];
+                  });
+                  return { descriptors: descriptorsWithIds, meta: { id: uniqueId } };
+                },
+              });
+
+              var serialized = {};
+
+              $("#user-note-input").on("blur", function () {
+                if (previousRange) {
+                  // Select the previous region again
+                  var selection = window.getSelection();
+                  selection.removeAllRanges();
+                  selection.addRange(previousRange);
+                }
+              });
+
+              highlighterContent.on("mouseup", function () {
+                var selection = window.getSelection();
+                if (selection.rangeCount > 0) {
+                  var range = selection.getRangeAt(0);
+                  var selectedText = getSelectedText();
+                  if (selectedText !== "") {
+                    showHighlightControl(range);
+                    // Update the previous selection with the new selection
+                    previousRange = range.cloneRange();
+                  }
+                  else {
+                    // If there is no new selection, set previousRange to null.
+                    previousRange = null;
+                  }
+                }
+              });
+
+              $(document).on('click', '#js-remove-highlight', function (event) {
+                // Ensure all highlights are serialised first!
+                highlightIds.forEach(function (highlightId) {
+                  serialized[highlightId] = hltr.serializeHighlights(highlightId);
+                });
+
+                var highlightId = $(this).data('id');
+                if (highlightId) {
+                  hltr.removeHighlights(null, highlightId);
+                  highlightIds = highlightIds.filter((id) => id !== highlightId)
+                }
+                hideHighlightTooltip();
+                cancelNote(noteTimestamp);
+              });
+
+              function getSelectedText() {
+                if (window.getSelection) {
+                  return window.getSelection().toString();
+                }
+                else if (document.selection && document.selection.type != "Control") {
+                  return document.selection.createRange().text;
+                }
+                return "";
+              }
+
+              // const highlightHandler = hltr.highlightHandler.bind(hltr);
+              const highlightHandler = () => hltr.highlightHandler();
+
+              $('#js-btn-highlight').on("click", highlightHandler);
+            }
+
+          }
+
+          function cancelNote(timestamp) {
+            $(`[data-timestamp="${timestamp}"]`).each(function (index, el) {
+              const notedText = el.textContent;
+              const parent = el.parentElement;
+              const textNode = document.createTextNode(notedText);
+              parent.replaceChild(textNode, el);
+            });
+            $(document).off('click', '#highlighter-contents', clickOutNotetHandler);
+          }
+
+          function showHighlightControl(range) {
+
+            var highlightMenuWidth = highlightTooltip.outerWidth();
+            var highlightMenuHalfWidth = highlightMenuWidth / 2;
+            var rect = range.getBoundingClientRect();
+            var noteWidth = $('#js-note-content').outerWidth();
+            var viewportWidth = $(window).width();
+            var highlightMenuLeft = (rect.left + rect.width / 2) - highlightMenuHalfWidth;
+            var highlightMenuRight = highlightMenuLeft + highlightMenuWidth;
+            var highlightNoteLeft = (rect.left + rect.width / 2) - noteWidth / 2;
+            var highlightNoteRight = highlightNoteLeft + noteWidth;
+
+            $('#js-note-content').removeAttr('style');
+
+            // Check if the tooltip exceeds the screen size
+            if (highlightMenuLeft < 0) {
+              highlightMenuLeft = 0;
+              highlightTooltip.removeClass("left right").addClass('left');
+              $('#js-note-content').css({
+                left: highlightMenuLeft,
+                'transform': 'none'
+              });
+            }
+            else if (highlightMenuRight > viewportWidth) {
+              highlightMenuLeft = viewportWidth - highlightMenuWidth;
+              highlightTooltip.removeClass("left right").addClass('right');
+            }
+            else {
+              highlightTooltip.removeClass("left right");
+
+              if (highlightNoteLeft < 0) {
+                $('#js-note-content').css({
+                  left: (-1 * highlightMenuLeft),
+                  'transform': 'none'
+                });
+              }
+              else if (highlightNoteRight > viewportWidth) {
+                $('#js-note-content').css({
+                  left: 'initial',
+                  right: (highlightMenuRight - viewportWidth),
+                  'transform': 'none'
+                });
+              }
+            }
+
+            highlightTooltip.css({
+              top: rect.top - highlightTooltip.outerHeight(),
+              left: highlightMenuLeft
+            });
+          }
+
+          function showHighlightTooltip() {
+            $(document).on('click', '#highlighter-contents', function (event) {
+              var selection = window.getSelection(),
+                range;
+              if ($(event.target).is('input, textarea')) {
+                hideHighlightTooltip(false);
+                return true;
+              }
+              if (selection.rangeCount > 0) {
+                range = selection.getRangeAt(0);
+
+                if (!range.collapsed || $(event.target).hasClass('highlighted') || $(event.target).hasClass('noted')) {
+                  // Display the tooltip for the first time
+                  highlightTooltip.show();
+                  tooltipVisible = true;
+                  highlightTooltip.removeClass('reactive-note reactive no-range');
+
+                  if ($(event.target).hasClass('highlighted')) {
+                    showHighlightControl($(event.target)[0]);
+                    var highlightId = $(event.target).attr('id');
+                    $('#js-remove-highlight').data('id', highlightId);
+                    highlightTooltip.addClass('reactive');
+                  }
+                  if ($(event.target).hasClass('noted')) {
+                    showHighlightControl($(event.target)[0]);
+                    var noteId = $(event.target).attr('id');
+                    $('#js-remove-note').data('id', noteId);
+                    highlightTooltip.addClass('reactive-note');
+                  }
+                  if (range.collapsed) {
+                    highlightTooltip.addClass('no-range');
+                    noteTimestamp = '';
+                    $('#js-note-content').data('timestamp', '');
+                  }
+                }
+                else if (!highlightTooltip.is(event.target) && highlightTooltip.has(event.target).length === 0) {
+                  hideHighlightTooltip();
+                }
+              }
+
+            });
+
+            $('#js-btn-highlight').on('click', function (event) {
+              event.preventDefault();
+              hideHighlightTooltip();
+              clearUserSelection();
+            });
+
+            var divParent = $('.test-contents, .test-panel');
+            divParent.on('scroll', function () {
+              if (tooltipVisible) {
+                hideHighlightTooltip();
+              }
+            });
+          }
+
+          function hideHighlightTooltip(clearSelection = true) {
+            $('#user-note-input').val('');
+            highlightTooltip.hide();
+            tooltipVisible = false;
+            noting = false;
+            highlightTooltip.removeClass('reactive reactive-note no-range');
+            noteInput.hide();
+            userSelectedRange = '';
+            if (clearSelection) {
+              clearUserSelection();
+            }
+            $(document).off('click', '#highlighter-contents', clickOutNotetHandler);
+          }
+
+          // Get user selected text.
+          function getUserSelection() {
+            let selectedText = '';
+            if (typeof window.getSelection !== 'undefined') {
+              selectedText = window.getSelection().toString();
+            }
+            else if (typeof document.selection !== 'undefined' && document.selection.type === 'Text') {
+              selectedText = document.selection.createRange().text;
+            }
+            return selectedText;
+          }
+
+          function clearUserSelection() {
+            if (window.getSelection) {
+              if (window.getSelection().empty) { // Chrome, Firefox, Opera, Safari
+                window.getSelection().empty();
+              }
+              else if (window.getSelection().removeAllRanges) { // IE
+                window.getSelection().removeAllRanges();
+              }
+            }
+            else if (document.selection) {  // IE 8 and below
+              document.selection.empty();
+            }
+          }
+
+          function showNotePad() {
+            
+            $('#js-bt-notepad, .notepad__close-icon').click(function (event) {
+              $('body').toggleClass('notepad-open');
+              if ($('body').hasClass('notepad-open')) {
+                var notePadWidth = $('#notepad').outerWidth();
+                highlighterContent.css({
+                  'width': `calc(100% - ${notePadWidth}px)`,
+                  'margin-left': 0
+                });
+              }
+              else {
+                highlighterContent.removeAttr('style');
+              }
+
+              $('.test-panel, .test-contents').getNiceScroll().hide();
+              highlighterContent.on('transitionstart', function () {
+                $('body').addClass('transitioning');
+                $('.test-panel, .test-contents').getNiceScroll().hide();
+                highlighterContent.off('transitionstart');
+              });
+
+              highlighterContent.on('transitionend', function () {
+                $('body').removeClass('transitioning');
+                $('.test-panel, .test-contents').getNiceScroll().show().resize();
+                highlighterContent.off('transitionend');
+              });
+            });
+
+            $('#js-bt-notepad, #notepad').click(function (event) {
+              newAddedNote = 0;
+              $('#js-bt-notepad').removeClass('active');
+            });
+
+            $('#js-btn-note').click(function (event) {
+              $(".highlight-box__note-content").show();
+            });
+
+            $('#cancel-note').click(function (event) {
+              $(highlightTooltip, noteInput).hide();
+              userSelectedRange = '';
+              $('#user-note-input').val('');
+              clearUserSelection();
+            });
+          }
+
+          function setNotepadHeight() {
+            var headerHeight = $('.realtest-header').outerHeight();
+            var questionPaletteHeight = $('.question-palette').outerHeight();
+            var windowHeight = $(window).height();
+            var notepadHeight = windowHeight - (headerHeight + questionPaletteHeight);
+            $('#notepad').css({
+              height: notepadHeight,
+            });
+          }
+
+          // Run nice scroll bar for notes.
+          function runNotesNiceScroll() {
+            var noteContainer = $('#notes-container');
+            noteContainer.niceScroll({
+              autohidemode: true,
+              cursorborderradius: 6,
+              cursorwidth: "2px",
+              cursorcolor: "#dfdfdf",
+            });
+          }
+
+          // Clear data note.
+          function clearDataNote() {
+            var quizID = getQuizId();
+            localStorage.removeItem('notes_' + quizID);
+          }
+
+          // End NOTE/HIGHLIGHT functions
+          //-----------------------------------
+          
+          window.initNote = initNote;
+          window.showNotePad = showNotePad;
+          window.initHighlighter = initHighlighter;
+          window.setNotepadHeight = setNotepadHeight;
+
+          window.loadNotepad = () => {
+            showNotePad();
+
+            //Handle notepad.
+            setupNoteApp();
+
+            setNotepadHeight();
+            $(window).resize(function () {
+              setNotepadHeight();
+            });
+
+            // Run nice scroll bar for notes.
+            
+
+            // Show button note and highlight when black out the text.
+            initHighlighter();
+            initNote();
+            // Show tooltip.
+            showHighlightTooltip();
+            if($(`.question-palette__item`).length > 0){
+              $(`.question-palette__item`)[0].click();
+            }
+          };
+
+
+      });
+    };
+    </script>
+  </body>
+</html>

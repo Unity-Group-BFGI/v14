@@ -1,0 +1,46 @@
+.bootstrap-maxlength {
+    z-index: 1040 !important;
+  }
+  .modal-open .bootstrap-maxlength {
+    z-index: 1060 !important;
+  }
+  .bootstrap-maxlength.badge {
+    display: inline-flex !important;
+  }
+  .ck-target {
+    display: none;
+  }
+  .ck-toolbar {
+    border-radius: 0.475rem !important;
+  }
+  .ck-content {
+    min-height: 200px;
+    border-radius: 0.475rem !important;
+  }
+  .ck-content.ck-focused {
+    border-color: var(--bs-primary) !important;
+    box-shadow: none !important;
+  }
+  .ck-editor .ck-toolbar {
+    border-top-left-radius: 0.475rem !important;
+    border-top-right-radius: 0.475rem !important;
+    border-bottom-right-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+  }
+  .ck-editor .ck-content {
+    border-bottom-right-radius: 0.475rem !important;
+    border-bottom-left-radius: 0.475rem !important;
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+  }
+  .ck-body .ck-balloon-panel .ck-content {
+    min-height: 200px;
+    border-color: transparent !important;
+  }
+  .ck-body .ck-balloon-panel .ck-content.ck-focused {
+    border-color: var(--bs-primary) !important;
+  }
+  .ck-body .ck-balloon-panel .ck-toolbar,
+  .ck-body .ck-balloon-panel.ck-toolbar-container {
+    border-radius: 0.475rem !important;
+  }

@@ -1,0 +1,1490 @@
+@charset "UTF-8";
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+:root,
+[data-bs-theme="light"] {
+  --bs-prismjs-bg: #1e1e3f;
+  --bs-prismjs-border: rgba(255, 255, 255, 0.1);
+  --bs-prismjs-btn-bg: #2d2d5e;
+  --bs-prismjs-btn-bg-hover: #2d2d5e;
+  --bs-prismjs-btn-color: rgba(255, 255, 255, 0.75);
+  --bs-prismjs-btn-color-hover: #7239ea;
+  --bs-prismjs-scrollbar-color: #323268;
+  --bs-prismjs-scrollbar-color-hover: #373773;
+}
+[data-bs-theme="dark"] {
+  --bs-prismjs-bg: #151521;
+  --bs-prismjs-border: rgba(255, 255, 255, 0.1);
+  --bs-prismjs-btn-bg: #27273d;
+  --bs-prismjs-btn-bg-hover: #27273d;
+  --bs-prismjs-btn-color: rgba(255, 255, 255, 0.75);
+  --bs-prismjs-btn-color-hover: #7239ea;
+  --bs-prismjs-scrollbar-color: #2d2d46;
+  --bs-prismjs-scrollbar-color-hover: #333350;
+}
+.highlight {
+  position: relative;
+  background: var(--bs-prismjs-bg);
+  border-radius: 0.475rem;
+  padding: 1.75rem 1.5rem 1.75rem 1.5rem;
+}
+.highlight .nav {
+  border-bottom: 1px solid var(--bs-prismjs-border);
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+  margin-top: -0.25rem;
+}
+.highlight .nav .nav-item {
+  margin-right: 0.75rem;
+}
+.highlight .nav .nav-link {
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 0.35rem 1rem;
+  border-radius: 0.475rem;
+  color: var(--bs-prismjs-btn-color);
+  transition: all 0.2s ease-in-out;
+  background-color: transparent;
+}
+.highlight .nav .nav-link.active,
+.highlight .nav .nav-link:focus {
+  transition: all 0.2s ease-in-out;
+  background-color: var(--bs-prismjs-btn-bg-hover);
+  color: var(--bs-prismjs-btn-color-hover);
+}
+.highlight .highlight-copy {
+  display: none;
+  position: absolute;
+  right: 1.75rem;
+  top: 1.5rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 0.35rem 1rem !important;
+  transition: all 0.2s ease-in-out;
+  background-color: var(--bs-prismjs-btn-bg);
+  color: var(--bs-prismjs-btn-color);
+}
+.highlight .highlight-copy:focus,
+.highlight .highlight-copy:hover {
+  transition: all 0.2s ease-in-out;
+  background-color: var(--bs-prismjs-btn-bg-hover);
+  color: var(--bs-prismjs-btn-color-hover);
+}
+.highlight:hover .highlight-copy {
+  display: flex;
+}
+.highlight .highlight-code pre {
+  background-color: transparent;
+  overflow: auto;
+  padding: 0;
+  margin: 0;
+  scrollbar-color: var(--bs-prismjs-scrollbar-color) transparent;
+}
+.highlight .highlight-code pre::-webkit-scrollbar-thumb {
+  background-color: var(--bs-prismjs-scrollbar-color);
+}
+.highlight .highlight-code pre::-webkit-scrollbar-corner {
+  background-color: transparent;
+}
+.highlight .highlight-code pre:hover {
+  scrollbar-color: var(--bs-prismjs-scrollbar-color-hover) transparent;
+}
+.highlight .highlight-code pre:hover::-webkit-scrollbar-thumb {
+  background-color: var(--bs-prismjs-scrollbar-color-hover);
+}
+.highlight .highlight-code pre:hover::-webkit-scrollbar-corner {
+  background-color: transparent;
+}
+.highlight .highlight-code pre code[class*="language-"] {
+  padding: 0;
+  margin: 0;
+  font-size: 1rem !important;
+}
+.fslightbox-slide-btn {
+  border-radius: 0.475rem;
+}
+.fslightbox-toolbar {
+  border-bottom-left-radius: 0.475rem;
+}
+
+
+
+
+
+
+
+
+
+
+/* recaptcha */
+
+
+.recaptcha {
+  padding: 15px;
+  border: 1px solid var(--bs-gray-200);
+  border-radius: 0.475rem;
+}
+.recaptcha .recaptcha-img {
+  margin-bottom: 10px;
+}
+.recaptcha .recaptcha_only_if_incorrect_sol {
+  color: var(--bs-danger);
+}
+.recaptcha .input-group .btn i {
+  padding-right: 0;
+}
+.recaptcha .input-group .form-control {
+  border-top-left-radius: 0.475rem !important;
+  border-bottom-left-radius: 0.475rem !important;
+}
+
+
+
+
+
+
+/* tox tinymce */
+.tox-target {
+  display: none;
+}
+.tox-tinymce {
+  border-radius: 0.475rem !important;
+}
+
+
+
+
+
+.leaflet-container .leaflet-bottom,
+.leaflet-container .leaflet-control,
+.leaflet-container .leaflet-pane,
+.leaflet-container .leaflet-top {
+  z-index: 1 !important;
+}
+.leaflet-container .leaflet-popup-content-wrapper {
+  border-radius: 0.475rem !important;
+  text-align: center;
+  box-shadow: var(--bs-box-shadow) !important;
+}
+.leaflet-container .leaflet-popup-content-wrapper .leaflet-popup-content {
+  font-family: Inter, Helvetica, sans-serif;
+  font-size: 1rem;
+}
+.tns {
+  position: relative;
+  overflow: hidden;
+}
+.tns [data-tns="true"] {
+  display: none;
+}
+.tns .tns-item {
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+.tns .tns-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.tns .tns-controls button {
+  outline: 0;
+  border: 0;
+  margin: 0 0.25rem;
+  border-radius: 0.475rem;
+  padding: 0.5rem 0.75rem;
+  background-color: var(--bs-primary);
+  color: var(--bs-primary-inverse);
+}
+.tns .tns-controls button:hover {
+  background-color: var(--bs-primary-active);
+}
+.tns .tns-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+.tns .tns-nav button {
+  display: block;
+  outline: 0;
+  width: 1.25rem;
+  height: 0.75rem;
+  background-color: var(--bs-gray-200);
+  margin: 0 0.25rem;
+  border: 0;
+  border-radius: 0.35rem;
+}
+.tns .tns-nav button.tns-nav-active {
+  background-color: var(--bs-primary);
+}
+.tns.tns-initiazlied [data-tns="true"] {
+  display: flex;
+}
+.tns.tns-initiazlied .tns-item {
+  opacity: 1;
+  transition: all 0.3s ease;
+}
+.tns.tns-default {
+  position: relative;
+}
+.tns.tns-default [data-controls="next"],
+.tns.tns-default [data-controls="prev"] {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.tns.tns-default [data-controls="prev"] {
+  left: 0;
+}
+.tns.tns-default [data-controls="next"] {
+  right: 0;
+}
+.tns.tns-default .tns-outer {
+  margin: 0 4rem;
+}
+@media (max-width: 767.98px) {
+  .tns.tns-default .tns-outer {
+    margin: 0 2rem;
+  }
+}
+.tns.tns-flush .tns-outer {
+  margin: 0;
+}
+.tns.tns-circle-nav .tns-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+.tns.tns-circle-nav .tns-nav button {
+  display: block;
+  outline: 0;
+  width: 1.15rem;
+  height: 1.15rem;
+  background-color: var(--bs-gray-200);
+  margin: 0 0.55rem;
+  border: 0;
+  border-radius: 50%;
+}
+.tns.tns-circle-nav .tns-nav button.tns-nav-active {
+  background-color: var(--bs-gray-400);
+}
+.tns-hide-disabled-nav [disabled] {
+  display: none !important;
+}
+body {
+  --fc-event-border-color: var(--bs-primary);
+  --fc-event-bg-color: var(--bs-primary);
+  --fc-event-text-color: var(--bs-primary-inverse);
+}
+.fc {
+  --fc-border-color: var(--bs-gray-200);
+  --fc-page-bg-color: #ffffff;
+  --fc-small-font-size: 0.95rem;
+  --fc-highlight-color: var(--bs-light);
+  --fc-bg-event-opacity: 0.3;
+  --fc-neutral-bg-color: var(--bs-light);
+  --fc-today-bg-color: var(--bs-success-light);
+  --fc-now-indicator-color: var(--bs-danger);
+  --fc-list-event-hover-bg-color: var(--bs-light);
+  --fc-button-text-color: var(--bs-gray-600);
+  --fc-button-bg-color: var(--bs-gray-100);
+  --fc-button-border-color: var(--bs-gray-100);
+  --fc-button-hover-bg-color: var(--bs-gray-100);
+  --fc-button-hover-border-color: var(--bs-gray-100);
+  --fc-button-active-bg-color: var(--bs-gray-200);
+  --fc-button-active-border-color: var(--bs-gray-200);
+}
+.fc table {
+  font-size: 1rem;
+}
+.fc .fc-button {
+  padding: 0.75rem 1.25rem;
+  box-shadow: none !important;
+  border: 0 !important;
+  border-radius: 0.475rem;
+  vertical-align: middle;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+.fc .fc-button-primary {
+  margin: 0;
+}
+.fc .fc-button-primary .fc-icon {
+  font-size: 1.35rem;
+  margin-bottom: 0.15rem;
+}
+.fc .fc-button-primary:not(:disabled):not(.fc-button-active):active,
+.fc .fc-button-primary:not(:disabled):not(.fc-button-active):focus,
+.fc .fc-button-primary:not(:disabled):not(.fc-button-active):hover {
+  color: var(--bs-gray-900);
+}
+.fc .fc-button-primary:not(:disabled):not(.fc-button-active):active .fc-icon,
+.fc .fc-button-primary:not(:disabled):not(.fc-button-active):focus .fc-icon,
+.fc .fc-button-primary:not(:disabled):not(.fc-button-active):hover .fc-icon {
+  color: var(--bs-gray-900);
+}
+.fc .fc-button-primary:not(:disabled).fc-button-active {
+  color: var(--bs-gray-900);
+}
+.fc .fc-button-primary:not(:disabled).fc-button-active .fc-icon {
+  color: var(--bs-gray-900);
+}
+.fc .fc-button-group .fc-button {
+  margin: 0 !important;
+}
+.fc .fc-toolbar-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--bs-gray-800);
+}
+.fc .fc-col-header-cell {
+  padding: 0.75rem 0.5rem;
+}
+.fc .fc-col-header-cell .fc-col-header-cell-cushion {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--bs-gray-800);
+}
+.fc .fc-scrollgrid {
+  border-radius: 0.475rem;
+}
+.fc .fc-scrollgrid thead > tr td:first-child {
+  border-top-left-radius: 0.475rem;
+}
+.fc .fc-scrollgrid thead > tr td:last-child {
+  border-top-right-radius: 0.475rem;
+}
+.fc .fc-scrollgrid tbody > tr:last-child td:first-child {
+  border-bottom-left-radius: 0.475rem;
+}
+.fc .fc-scrollgrid tbody > tr:last-child td:last-child {
+  border-bottom-right-radius: 0.475rem;
+}
+.fc .fc-daygrid-event {
+  margin-top: 3px;
+}
+.fc .fc-daygrid-block-event .fc-event-time,
+.fc .fc-daygrid-block-event .fc-event-title,
+.fc .fc-daygrid-dot-event .fc-event-time,
+.fc .fc-daygrid-dot-event .fc-event-title {
+  padding: 0.25rem 0.25rem;
+}
+.fc .fc-daygrid-day-number {
+  color: var(--bs-gray-800);
+}
+.fc .fc-daygrid-dot-event {
+  background-color: var(--bs-light);
+  color: var(--bs-gray-600);
+}
+.fc .fc-daygrid-dot-event .fc-event-title {
+  font-weight: 500;
+}
+.fc .fc-daygrid-dot-event.fc-event-mirror,
+.fc .fc-daygrid-dot-event:hover {
+  background-color: var(--bs-light);
+  color: var(--bs-primary);
+}
+.fc .fc-daygrid-event-dot {
+  margin-left: 0.5rem;
+  margin-right: 0.1rem;
+}
+.fc .fc-popover {
+  border: 0 !important;
+  background-color: var(--bs-body-bg);
+  box-shadow: var(--bs-dropdown-box-shadow);
+  border-radius: 0.475rem;
+}
+.fc .fc-popover .fc-popover-header {
+  border-top-left-radius: 0.475rem;
+  border-top-right-radius: 0.475rem;
+  padding: 0.65rem 0.75rem;
+  background-color: var(--bs-tooltip-bg);
+}
+.fc .fc-popover .fc-popover-header .fc-popover-title {
+  color: var(--bs-gray-800);
+  font-size: 1rem;
+  font-weight: 500;
+}
+.fc .fc-popover .fc-popover-header .fc-popover-close {
+  font-size: 1rem;
+  color: var(--bs-gray-600);
+}
+.fc .fc-popover .fc-popover-header .fc-popover-close:hover {
+  color: var(--bs-primary);
+}
+.fc .fc-popover .fc-popover-body {
+  padding: 0.5rem 0.75rem 0.75rem 0.75rem;
+}
+.fc .fc-daygrid-more-link {
+  font-weight: 500;
+}
+.fc .fc-timegrid-slot {
+  height: 2rem;
+  font-size: 0.95rem;
+}
+.fc .fc-list-day-cushion,
+.fc .fc-list-table td {
+  padding: 0.85rem 1.15rem;
+}
+.fc .fc-list-day-side-text,
+.fc .fc-list-day-text {
+  font-size: 1.1rem;
+  color: var(--bs-gray-900);
+  font-weight: 600;
+}
+.fc .fc-list,
+.fc .fc-list-table {
+  border-radius: 0.475rem;
+}
+.fc .fc-list {
+  overflow: hidden;
+  position: relative;
+}
+.fc .fc-timegrid-axis {
+  padding-left: 0;
+  padding-right: 0;
+}
+.fc .fc-timegrid-event .fc-event-main {
+  padding: 0.25rem 0.25rem;
+}
+.fc .fc-timegrid-now-indicator-arrow {
+  margin-top: -1px;
+}
+.fc-h-event {
+  font-weight: 400;
+}
+@media (max-width: 767.98px) {
+  .fc .fc-header-toolbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .fc .fc-header-toolbar .fc-toolbar-chunk:nth-child(1),
+  .fc .fc-header-toolbar .fc-toolbar-chunk:nth-child(3) {
+    order: 2;
+  }
+  .fc .fc-header-toolbar .fc-toolbar-chunk:nth-child(2) {
+    order: 1;
+  }
+  .fc .fc-header-toolbar .fc-toolbar-chunk:nth-child(1),
+  .fc .fc-header-toolbar .fc-toolbar-chunk:nth-child(2) {
+    margin-bottom: 1rem;
+  }
+}
+.kanban-container {
+  width: 100% !important;
+  display: flex;
+  flex-wrap: wrap;
+}
+.kanban-container .kanban-board {
+  float: none;
+  flex-shrink: 0;
+  margin-bottom: 1.25rem;
+  margin-right: 1.25rem !important;
+  background-color: var(--bs-gray-100);
+  border-radius: 0.475rem;
+}
+.kanban-container .kanban-board:last-child {
+  margin-right: 0 !important;
+}
+.kanban-container .kanban-board .kanban-board-header {
+  border-top-left-radius: 0.475rem;
+  border-top-right-radius: 0.475rem;
+}
+.kanban-container .kanban-board .kanban-board-header .kanban-title-board {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--bs-gray-900);
+}
+.kanban-container .kanban-board .kanban-board-header.light {
+  background-color: var(--bs-light);
+  box-shadow: none;
+}
+.kanban-container .kanban-board .kanban-board-header.light .kanban-title-board {
+  color: var(--bs-light-inverse);
+}
+.kanban-container .kanban-board .kanban-board-header.light-light {
+  color: rgba(var(--bs-light), 0.1);
+  box-shadow: none;
+}
+.kanban-container
+  .kanban-board
+  .kanban-board-header.light-light
+  .kanban-title-board {
+  color: var(--bs-light);
+}
+.kanban-container .kanban-board .kanban-board-header.primary {
+  background-color: var(--bs-primary);
+  box-shadow: none;
+}
+.kanban-container
+  .kanban-board
+  .kanban-board-header.primary
+  .kanban-title-board {
+  color: var(--bs-primary-inverse);
+}
+.kanban-container .kanban-board .kanban-board-header.light-primary {
+  color: rgba(var(--bs-primary), 0.1);
+  box-shadow: none;
+}
+.kanban-container
+  .kanban-board
+  .kanban-board-header.light-primary
+  .kanban-title-board {
+  color: var(--bs-primary);
+}
+.kanban-container .kanban-board .kanban-board-header.secondary {
+  background-color: var(--bs-secondary);
+  box-shadow: none;
+}
+.kanban-container
+  .kanban-board
+  .kanban-board-header.secondary
+  .kanban-title-board {
+  color: var(--bs-secondary-inverse);
+}
+.kanban-container .kanban-board .kanban-board-header.light-secondary {
+  color: rgba(var(--bs-secondary), 0.1);
+  box-shadow: none;
+}
+.kanban-container
+  .kanban-board
+  .kanban-board-header.light-secondary
+  .kanban-title-board {
+  color: var(--bs-secondary);
+}
+.kanban-container .kanban-board .kanban-board-header.success {
+  background-color: var(--bs-success);
+  box-shadow: none;
+}
+.kanban-container
+  .kanban-board
+  .kanban-board-header.success
+  .kanban-title-board {
+  color: var(--bs-success-inverse);
+}
+.kanban-container .kanban-board .kanban-board-header.light-success {
+  color: rgba(var(--bs-success), 0.1);
+  box-shadow: none;
+}
+.kanban-container
+  .kanban-board
+  .kanban-board-header.light-success
+  .kanban-title-board {
+  color: var(--bs-success);
+}
+.kanban-container .kanban-board .kanban-board-header.info {
+  background-color: var(--bs-info);
+  box-shadow: none;
+}
+.kanban-container .kanban-board .kanban-board-header.info .kanban-title-board {
+  color: var(--bs-info-inverse);
+}
+.kanban-container .kanban-board .kanban-board-header.light-info {
+  color: rgba(var(--bs-info), 0.1);
+  box-shadow: none;
+}
+.kanban-container
+  .kanban-board
+  .kanban-board-header.light-info
+  .kanban-title-board {
+  color: var(--bs-info);
+}
+.kanban-container .kanban-board .kanban-board-header.warning {
+  background-color: var(--bs-warning);
+  box-shadow: none;
+}
+.kanban-container
+  .kanban-board
+  .kanban-board-header.warning
+  .kanban-title-board {
+  color: var(--bs-warning-inverse);
+}
+.kanban-container .kanban-board .kanban-board-header.light-warning {
+  color: rgba(var(--bs-warning), 0.1);
+  box-shadow: none;
+}
+.kanban-container
+  .kanban-board
+  .kanban-board-header.light-warning
+  .kanban-title-board {
+  color: var(--bs-warning);
+}
+.kanban-container .kanban-board .kanban-board-header.danger {
+  background-color: var(--bs-danger);
+  box-shadow: none;
+}
+.kanban-container
+  .kanban-board
+  .kanban-board-header.danger
+  .kanban-title-board {
+  color: var(--bs-danger-inverse);
+}
+.kanban-container .kanban-board .kanban-board-header.light-danger {
+  color: rgba(var(--bs-danger), 0.1);
+  box-shadow: none;
+}
+.kanban-container
+  .kanban-board
+  .kanban-board-header.light-danger
+  .kanban-title-board {
+  color: var(--bs-danger);
+}
+.kanban-container .kanban-board .kanban-board-header.dark {
+  background-color: var(--bs-dark);
+  box-shadow: none;
+}
+.kanban-container .kanban-board .kanban-board-header.dark .kanban-title-board {
+  color: var(--bs-dark-inverse);
+}
+.kanban-container .kanban-board .kanban-board-header.light-dark {
+  color: rgba(var(--bs-dark), 0.1);
+  box-shadow: none;
+}
+.kanban-container
+  .kanban-board
+  .kanban-board-header.light-dark
+  .kanban-title-board {
+  color: var(--bs-dark);
+}
+.kanban-container .kanban-board .kanban-drag .kanban-item {
+  border-radius: 0.475rem;
+  box-shadow: 0 0 13px 0 rgba(0, 0, 0, 0.05);
+  background: var(--bs-body-bg);
+}
+.kanban-container .kanban-board .kanban-drag .kanban-item[data-class="light"] {
+  background-color: var(--bs-light);
+  color: var(--bs-light-inverse);
+  box-shadow: none;
+}
+.kanban-container
+  .kanban-board
+  .kanban-drag
+  .kanban-item[data-class="light-light"] {
+  background-color: var(--bs-light-light);
+  color: var(--bs-light);
+  box-shadow: none;
+}
+.kanban-container
+  .kanban-board
+  .kanban-drag
+  .kanban-item[data-class="primary"] {
+  background-color: var(--bs-primary);
+  color: var(--bs-primary-inverse);
+  box-shadow: none;
+}
+.kanban-container
+  .kanban-board
+  .kanban-drag
+  .kanban-item[data-class="light-primary"] {
+  background-color: var(--bs-primary-light);
+  color: var(--bs-primary);
+  box-shadow: none;
+}
+.kanban-container
+  .kanban-board
+  .kanban-drag
+  .kanban-item[data-class="secondary"] {
+  background-color: var(--bs-secondary);
+  color: var(--bs-secondary-inverse);
+  box-shadow: none;
+}
+.kanban-container
+  .kanban-board
+  .kanban-drag
+  .kanban-item[data-class="light-secondary"] {
+  background-color: var(--bs-secondary-light);
+  color: var(--bs-secondary);
+  box-shadow: none;
+}
+.kanban-container
+  .kanban-board
+  .kanban-drag
+  .kanban-item[data-class="success"] {
+  background-color: var(--bs-success);
+  color: var(--bs-success-inverse);
+  box-shadow: none;
+}
+.kanban-container
+  .kanban-board
+  .kanban-drag
+  .kanban-item[data-class="light-success"] {
+  background-color: var(--bs-success-light);
+  color: var(--bs-success);
+  box-shadow: none;
+}
+.kanban-container .kanban-board .kanban-drag .kanban-item[data-class="info"] {
+  background-color: var(--bs-info);
+  color: var(--bs-info-inverse);
+  box-shadow: none;
+}
+.kanban-container
+  .kanban-board
+  .kanban-drag
+  .kanban-item[data-class="light-info"] {
+  background-color: var(--bs-info-light);
+  color: var(--bs-info);
+  box-shadow: none;
+}
+.kanban-container
+  .kanban-board
+  .kanban-drag
+  .kanban-item[data-class="warning"] {
+  background-color: var(--bs-warning);
+  color: var(--bs-warning-inverse);
+  box-shadow: none;
+}
+.kanban-container
+  .kanban-board
+  .kanban-drag
+  .kanban-item[data-class="light-warning"] {
+  background-color: var(--bs-warning-light);
+  color: var(--bs-warning);
+  box-shadow: none;
+}
+.kanban-container .kanban-board .kanban-drag .kanban-item[data-class="danger"] {
+  background-color: var(--bs-danger);
+  color: var(--bs-danger-inverse);
+  box-shadow: none;
+}
+.kanban-container
+  .kanban-board
+  .kanban-drag
+  .kanban-item[data-class="light-danger"] {
+  background-color: var(--bs-danger-light);
+  color: var(--bs-danger);
+  box-shadow: none;
+}
+.kanban-container .kanban-board .kanban-drag .kanban-item[data-class="dark"] {
+  background-color: var(--bs-dark);
+  color: var(--bs-dark-inverse);
+  box-shadow: none;
+}
+.kanban-container
+  .kanban-board
+  .kanban-drag
+  .kanban-item[data-class="light-dark"] {
+  background-color: var(--bs-dark-light);
+  color: var(--bs-dark);
+  box-shadow: none;
+}
+.kanban-fixed-height .kanban-container .kanban-board .kanban-drag {
+  position: relative;
+  overflow-y: auto;
+}
+.jstree-default .jstree-anchor {
+  color: var(--bs-gray-700);
+  padding: 0 8px 0 4px;
+}
+.jstree-default .jstree-icon {
+  color: var(--bs-gray-700);
+  font-size: 1.3rem;
+}
+.jstree-default .jstree-icon.la {
+  font-size: 1.5rem;
+}
+.jstree-default .jstree-icon.fa {
+  font-size: 1.2rem;
+}
+.jstree-default .jstree-disabled {
+  cursor: not-allowed;
+  line-height: auto;
+  height: auto;
+  opacity: 0.7;
+}
+.jstree-default .jstree-disabled .jstree-icon {
+  color: var(--bs-gray-700);
+}
+.jstree-default .jstree-clicked {
+  border: 0;
+  background: var(--bs-gray-100);
+  box-shadow: none;
+}
+.jstree-default .jstree-hovered {
+  border: 0;
+  background-color: var(--bs-gray-100);
+  box-shadow: none;
+}
+.jstree-default .jstree-wholerow-clicked {
+  background: var(--bs-gray-200);
+  box-shadow: none;
+}
+.jstree-default .jstree-wholerow-hovered,
+.jstree-default.jstree-wholerow .jstree-wholerow-hovered {
+  border: 0;
+  background-color: var(--bs-gray-100);
+  box-shadow: none;
+}
+.jstree-open > .jstree-anchor > .fa-folder:before {
+  margin-left: 2px;
+  content: "\f07c";
+}
+.jstree-open > .jstree-anchor > .la-folder:before {
+  margin-left: 2px;
+  content: "\f200";
+}
+.jstree-default.jstree-rtl .jstree-node {
+  background-position: 100% 1px !important;
+}
+.jstree-default.jstree-rtl .jstree-last {
+  background: 0 0;
+  background-repeat: no-repeat;
+}
+.jstree-rtl .jstree-anchor {
+  padding: 0 4px 0 8px;
+}
+.vakata-context,
+.vakata-context ul {
+  padding: 0.5rem 0;
+  min-width: 150px;
+  font-size: 1rem;
+  font-family: var(--bs-font-sans-serif);
+  background: var(--bs-body-bg);
+  box-shadow: var(--bs-dropdown-box-shadow);
+  border: 0;
+  border-radius: 0.475rem;
+}
+.vakata-context li,
+.vakata-context ul li {
+  padding: 0;
+  border: 0;
+}
+.vakata-context li a,
+.vakata-context ul li a {
+  padding: 0 1.2rem;
+  border: 0;
+}
+.vakata-context li a i,
+.vakata-context ul li a i {
+  display: none;
+}
+.vakata-context li a .vakata-contextmenu-sep,
+.vakata-context ul li a .vakata-contextmenu-sep {
+  display: none;
+}
+.vakata-context li a ins,
+.vakata-context li a span,
+.vakata-context ul li a ins,
+.vakata-context ul li a span {
+  display: none;
+  border: 0 !important;
+}
+.vakata-context .vakata-context-hover > a,
+.vakata-context li a:hover,
+.vakata-context ul .vakata-context-hover > a,
+.vakata-context ul li a:hover {
+  margin: 0;
+  background-color: var(--bs-gray-100);
+  color: var(--bs-primary);
+  box-shadow: none;
+}
+.vakata-context .vakata-context-hover > a .ins,
+.vakata-context .vakata-context-hover > a .span,
+.vakata-context li a:hover .ins,
+.vakata-context li a:hover .span,
+.vakata-context ul .vakata-context-hover > a .ins,
+.vakata-context ul .vakata-context-hover > a .span,
+.vakata-context ul li a:hover .ins,
+.vakata-context ul li a:hover .span {
+  border: 0 !important;
+}
+.vakata-context .vakata-context-separator a,
+.vakata-context-rtl .vakata-context-separator a {
+  margin: 0;
+  border: 0;
+  height: 2px;
+  background-color: var(--bs-gray-200);
+}
+.jstree-rename-input {
+  outline: 0 !important;
+  padding: 2px 6px !important;
+  margin-right: -4px !important;
+  background-color: var(--bs-gray-100) !important;
+  border: 1px solid var(--bs-gray-100) !important;
+  border-radius: 0.475rem;
+}
+.vis-timeline {
+  border: 1px solid var(--bs-border-color) !important;
+  border-radius: 0.475rem !important;
+}
+.vis-timeline .vis-labelset .vis-label {
+  display: flex;
+  align-items: center;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  border-bottom: none;
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--bs-gray-900);
+}
+.vis-timeline .vis-foreground .vis-group {
+  border-bottom: none;
+}
+.vis-timeline .vis-item {
+  position: absolute;
+  color: var(--bs-gray-700);
+  border-color: var(--bs-primary);
+  border-width: 1px;
+  background-color: var(--bs-gray-100);
+  border-radius: 0.475rem !important;
+}
+.vis-timeline .vis-item.vis-selected {
+  background-color: var(--bs-warning-light);
+  color: var(--bs-gray-700);
+  border-color: var(--bs-warning);
+}
+.vis-timeline .vis-item .vis-item-content {
+  padding: 0.75rem 1rem;
+  width: 100%;
+  transform: none !important;
+}
+.vis-timeline .vis-time-axis {
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.vis-timeline .vis-time-axis .vis-text {
+  color: var(--bs-gray-400);
+}
+.vis-timeline .vis-time-axis .vis-grid.vis-minor {
+  border-left-color: var(--bs-border-dashed-color) !important;
+}
+.vis-timeline .vis-time-axis .vis-grid.vis-vertical {
+  border-left-style: dashed !important;
+}
+.vis-timeline .vis-panel .vis-shadow {
+  box-shadow: none !important;
+}
+.vis-timeline .vis-panel.vis-bottom,
+.vis-timeline .vis-panel.vis-center,
+.vis-timeline .vis-panel.vis-left,
+.vis-timeline .vis-panel.vis-right,
+.vis-timeline .vis-panel.vis-top {
+  border-color: var(--bs-border-color) !important;
+}
+.vis-timeline .vis-current-time {
+  background-color: var(--bs-success);
+}
+.vis-timeline-custom .vis-timeline {
+  border: 0 !important;
+}
+.vis-timeline-custom .vis-timeline .vis-label {
+  padding-left: 0 !important;
+}
+.vis-timeline-custom .vis-panel.vis-bottom,
+.vis-timeline-custom .vis-panel.vis-center,
+.vis-timeline-custom .vis-panel.vis-left,
+.vis-timeline-custom .vis-panel.vis-right,
+.vis-timeline-custom .vis-panel.vis-top {
+  border: 0 !important;
+}
+.vis-timeline-custom .vis-item {
+  background-color: transparent;
+  border: 0 !important;
+  border-radius: 0 !important;
+}
+.vis-timeline-custom .vis-item .vis-item-content {
+  padding: 0 !important;
+}
+.tempus-dominus-widget {
+  padding: 1rem 0.5rem 0.5rem 0.5rem;
+  width: 280px !important;
+  box-shadow: var(--bs-dropdown-box-shadow) !important;
+  background-color: var(--bs-body-bg) !important;
+  border-radius: 0.475rem;
+}
+.tempus-dominus-widget i:not(.ki-outline):not(.ki-solid):not(.ki-duotone) {
+  font-size: 0.9rem !important;
+}
+.tempus-dominus-widget .picker-switch {
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+.tempus-dominus-widget .date-container-days {
+  grid-auto-rows: 36px;
+}
+.tempus-dominus-widget .date-container-days .day {
+  border-radius: 0.475rem !important;
+}
+.tempus-dominus-widget .date-container-months {
+  grid-auto-rows: 36px;
+}
+.tempus-dominus-widget .date-container-months .month {
+  border-radius: 0.475rem !important;
+}
+.tempus-dominus-widget .date-container-years {
+  grid-auto-rows: 36px;
+}
+.tempus-dominus-widget .date-container-years .year {
+  border-radius: 0.475rem !important;
+}
+.tempus-dominus-widget .time-container .separator {
+  border: 0 !important;
+}
+.tempus-dominus-widget .time-container .time-container-clock div {
+  border-radius: 0.475rem !important;
+}
+.tempus-dominus-widget .toolbar div {
+  border-radius: 0.475rem;
+}
+.tempus-dominus-widget
+  .toolbar
+  div
+  i:not(.ki-outline):not(.ki-solid):not(.ki-duotone) {
+  font-size: 1.1rem !important;
+}
+.tempus-dominus-widget.dark,
+.tempus-dominus-widget.light {
+  color: var(--bs-gray-900);
+}
+.tempus-dominus-widget.dark [data-action].disabled,
+.tempus-dominus-widget.dark [data-action].disabled:hover,
+.tempus-dominus-widget.light [data-action].disabled,
+.tempus-dominus-widget.light [data-action].disabled:hover {
+  color: var(--bs-gray-400);
+}
+.tempus-dominus-widget.dark .toolbar div:hover,
+.tempus-dominus-widget.light .toolbar div:hover {
+  background: var(--bs-gray-200);
+}
+.tempus-dominus-widget.dark .date-container-days .dow,
+.tempus-dominus-widget.light .date-container-days .dow {
+  color: var(--bs-gray-700) !important;
+}
+.tempus-dominus-widget.dark .date-container-days .cw,
+.tempus-dominus-widget.light .date-container-days .cw {
+  color: rgba(var(--bs-gray-900-rgb), 0.38);
+}
+.tempus-dominus-widget.dark .date-container-days div:not(.no-highlight):hover,
+.tempus-dominus-widget.dark
+  .date-container-decades
+  div:not(.no-highlight):hover,
+.tempus-dominus-widget.dark .date-container-months div:not(.no-highlight):hover,
+.tempus-dominus-widget.dark .date-container-years div:not(.no-highlight):hover,
+.tempus-dominus-widget.dark .time-container-clock div:not(.no-highlight):hover,
+.tempus-dominus-widget.dark .time-container-hour div:not(.no-highlight):hover,
+.tempus-dominus-widget.dark .time-container-minute div:not(.no-highlight):hover,
+.tempus-dominus-widget.dark .time-container-second div:not(.no-highlight):hover,
+.tempus-dominus-widget.light .date-container-days div:not(.no-highlight):hover,
+.tempus-dominus-widget.light
+  .date-container-decades
+  div:not(.no-highlight):hover,
+.tempus-dominus-widget.light
+  .date-container-months
+  div:not(.no-highlight):hover,
+.tempus-dominus-widget.light .date-container-years div:not(.no-highlight):hover,
+.tempus-dominus-widget.light .time-container-clock div:not(.no-highlight):hover,
+.tempus-dominus-widget.light .time-container-hour div:not(.no-highlight):hover,
+.tempus-dominus-widget.light
+  .time-container-minute
+  div:not(.no-highlight):hover,
+.tempus-dominus-widget.light
+  .time-container-second
+  div:not(.no-highlight):hover {
+  background: var(--bs-gray-200);
+}
+.tempus-dominus-widget.dark .date-container-days div:not(.no-highlight).active,
+.tempus-dominus-widget.dark
+  .date-container-decades
+  div:not(.no-highlight).active,
+.tempus-dominus-widget.dark
+  .date-container-months
+  div:not(.no-highlight).active,
+.tempus-dominus-widget.dark .date-container-years div:not(.no-highlight).active,
+.tempus-dominus-widget.dark .time-container-clock div:not(.no-highlight).active,
+.tempus-dominus-widget.dark .time-container-hour div:not(.no-highlight).active,
+.tempus-dominus-widget.dark
+  .time-container-minute
+  div:not(.no-highlight).active,
+.tempus-dominus-widget.dark
+  .time-container-second
+  div:not(.no-highlight).active,
+.tempus-dominus-widget.light .date-container-days div:not(.no-highlight).active,
+.tempus-dominus-widget.light
+  .date-container-decades
+  div:not(.no-highlight).active,
+.tempus-dominus-widget.light
+  .date-container-months
+  div:not(.no-highlight).active,
+.tempus-dominus-widget.light
+  .date-container-years
+  div:not(.no-highlight).active,
+.tempus-dominus-widget.light
+  .time-container-clock
+  div:not(.no-highlight).active,
+.tempus-dominus-widget.light .time-container-hour div:not(.no-highlight).active,
+.tempus-dominus-widget.light
+  .time-container-minute
+  div:not(.no-highlight).active,
+.tempus-dominus-widget.light
+  .time-container-second
+  div:not(.no-highlight).active {
+  background-color: var(--bs-primary);
+  color: var(--bs-body-bg);
+  text-shadow: 0 -1px 0 rgba(var(--bs-gray-900-rgb), 0.25);
+}
+.tempus-dominus-widget.dark
+  .date-container-days
+  div:not(.no-highlight).active.new,
+.tempus-dominus-widget.dark
+  .date-container-days
+  div:not(.no-highlight).active.old,
+.tempus-dominus-widget.dark
+  .date-container-decades
+  div:not(.no-highlight).active.new,
+.tempus-dominus-widget.dark
+  .date-container-decades
+  div:not(.no-highlight).active.old,
+.tempus-dominus-widget.dark
+  .date-container-months
+  div:not(.no-highlight).active.new,
+.tempus-dominus-widget.dark
+  .date-container-months
+  div:not(.no-highlight).active.old,
+.tempus-dominus-widget.dark
+  .date-container-years
+  div:not(.no-highlight).active.new,
+.tempus-dominus-widget.dark
+  .date-container-years
+  div:not(.no-highlight).active.old,
+.tempus-dominus-widget.dark
+  .time-container-clock
+  div:not(.no-highlight).active.new,
+.tempus-dominus-widget.dark
+  .time-container-clock
+  div:not(.no-highlight).active.old,
+.tempus-dominus-widget.dark
+  .time-container-hour
+  div:not(.no-highlight).active.new,
+.tempus-dominus-widget.dark
+  .time-container-hour
+  div:not(.no-highlight).active.old,
+.tempus-dominus-widget.dark
+  .time-container-minute
+  div:not(.no-highlight).active.new,
+.tempus-dominus-widget.dark
+  .time-container-minute
+  div:not(.no-highlight).active.old,
+.tempus-dominus-widget.dark
+  .time-container-second
+  div:not(.no-highlight).active.new,
+.tempus-dominus-widget.dark
+  .time-container-second
+  div:not(.no-highlight).active.old,
+.tempus-dominus-widget.light
+  .date-container-days
+  div:not(.no-highlight).active.new,
+.tempus-dominus-widget.light
+  .date-container-days
+  div:not(.no-highlight).active.old,
+.tempus-dominus-widget.light
+  .date-container-decades
+  div:not(.no-highlight).active.new,
+.tempus-dominus-widget.light
+  .date-container-decades
+  div:not(.no-highlight).active.old,
+.tempus-dominus-widget.light
+  .date-container-months
+  div:not(.no-highlight).active.new,
+.tempus-dominus-widget.light
+  .date-container-months
+  div:not(.no-highlight).active.old,
+.tempus-dominus-widget.light
+  .date-container-years
+  div:not(.no-highlight).active.new,
+.tempus-dominus-widget.light
+  .date-container-years
+  div:not(.no-highlight).active.old,
+.tempus-dominus-widget.light
+  .time-container-clock
+  div:not(.no-highlight).active.new,
+.tempus-dominus-widget.light
+  .time-container-clock
+  div:not(.no-highlight).active.old,
+.tempus-dominus-widget.light
+  .time-container-hour
+  div:not(.no-highlight).active.new,
+.tempus-dominus-widget.light
+  .time-container-hour
+  div:not(.no-highlight).active.old,
+.tempus-dominus-widget.light
+  .time-container-minute
+  div:not(.no-highlight).active.new,
+.tempus-dominus-widget.light
+  .time-container-minute
+  div:not(.no-highlight).active.old,
+.tempus-dominus-widget.light
+  .time-container-second
+  div:not(.no-highlight).active.new,
+.tempus-dominus-widget.light
+  .time-container-second
+  div:not(.no-highlight).active.old {
+  color: var(--bs-body-bg);
+}
+.tempus-dominus-widget.dark
+  .date-container-days
+  div:not(.no-highlight).active.today:before,
+.tempus-dominus-widget.dark
+  .date-container-decades
+  div:not(.no-highlight).active.today:before,
+.tempus-dominus-widget.dark
+  .date-container-months
+  div:not(.no-highlight).active.today:before,
+.tempus-dominus-widget.dark
+  .date-container-years
+  div:not(.no-highlight).active.today:before,
+.tempus-dominus-widget.dark
+  .time-container-clock
+  div:not(.no-highlight).active.today:before,
+.tempus-dominus-widget.dark
+  .time-container-hour
+  div:not(.no-highlight).active.today:before,
+.tempus-dominus-widget.dark
+  .time-container-minute
+  div:not(.no-highlight).active.today:before,
+.tempus-dominus-widget.dark
+  .time-container-second
+  div:not(.no-highlight).active.today:before,
+.tempus-dominus-widget.light
+  .date-container-days
+  div:not(.no-highlight).active.today:before,
+.tempus-dominus-widget.light
+  .date-container-decades
+  div:not(.no-highlight).active.today:before,
+.tempus-dominus-widget.light
+  .date-container-months
+  div:not(.no-highlight).active.today:before,
+.tempus-dominus-widget.light
+  .date-container-years
+  div:not(.no-highlight).active.today:before,
+.tempus-dominus-widget.light
+  .time-container-clock
+  div:not(.no-highlight).active.today:before,
+.tempus-dominus-widget.light
+  .time-container-hour
+  div:not(.no-highlight).active.today:before,
+.tempus-dominus-widget.light
+  .time-container-minute
+  div:not(.no-highlight).active.today:before,
+.tempus-dominus-widget.light
+  .time-container-second
+  div:not(.no-highlight).active.today:before {
+  border-bottom-color: var(--bs-body-bg);
+}
+.tempus-dominus-widget.dark .date-container-days div:not(.no-highlight).new,
+.tempus-dominus-widget.dark .date-container-days div:not(.no-highlight).old,
+.tempus-dominus-widget.dark .date-container-decades div:not(.no-highlight).new,
+.tempus-dominus-widget.dark .date-container-decades div:not(.no-highlight).old,
+.tempus-dominus-widget.dark .date-container-months div:not(.no-highlight).new,
+.tempus-dominus-widget.dark .date-container-months div:not(.no-highlight).old,
+.tempus-dominus-widget.dark .date-container-years div:not(.no-highlight).new,
+.tempus-dominus-widget.dark .date-container-years div:not(.no-highlight).old,
+.tempus-dominus-widget.dark .time-container-clock div:not(.no-highlight).new,
+.tempus-dominus-widget.dark .time-container-clock div:not(.no-highlight).old,
+.tempus-dominus-widget.dark .time-container-hour div:not(.no-highlight).new,
+.tempus-dominus-widget.dark .time-container-hour div:not(.no-highlight).old,
+.tempus-dominus-widget.dark .time-container-minute div:not(.no-highlight).new,
+.tempus-dominus-widget.dark .time-container-minute div:not(.no-highlight).old,
+.tempus-dominus-widget.dark .time-container-second div:not(.no-highlight).new,
+.tempus-dominus-widget.dark .time-container-second div:not(.no-highlight).old,
+.tempus-dominus-widget.light .date-container-days div:not(.no-highlight).new,
+.tempus-dominus-widget.light .date-container-days div:not(.no-highlight).old,
+.tempus-dominus-widget.light .date-container-decades div:not(.no-highlight).new,
+.tempus-dominus-widget.light .date-container-decades div:not(.no-highlight).old,
+.tempus-dominus-widget.light .date-container-months div:not(.no-highlight).new,
+.tempus-dominus-widget.light .date-container-months div:not(.no-highlight).old,
+.tempus-dominus-widget.light .date-container-years div:not(.no-highlight).new,
+.tempus-dominus-widget.light .date-container-years div:not(.no-highlight).old,
+.tempus-dominus-widget.light .time-container-clock div:not(.no-highlight).new,
+.tempus-dominus-widget.light .time-container-clock div:not(.no-highlight).old,
+.tempus-dominus-widget.light .time-container-hour div:not(.no-highlight).new,
+.tempus-dominus-widget.light .time-container-hour div:not(.no-highlight).old,
+.tempus-dominus-widget.light .time-container-minute div:not(.no-highlight).new,
+.tempus-dominus-widget.light .time-container-minute div:not(.no-highlight).old,
+.tempus-dominus-widget.light .time-container-second div:not(.no-highlight).new,
+.tempus-dominus-widget.light .time-container-second div:not(.no-highlight).old {
+  color: rgba(var(--bs-gray-900-rgb), 0.38);
+}
+.tempus-dominus-widget.dark
+  .date-container-days
+  div:not(.no-highlight).disabled,
+.tempus-dominus-widget.dark
+  .date-container-days
+  div:not(.no-highlight).disabled:hover,
+.tempus-dominus-widget.dark
+  .date-container-decades
+  div:not(.no-highlight).disabled,
+.tempus-dominus-widget.dark
+  .date-container-decades
+  div:not(.no-highlight).disabled:hover,
+.tempus-dominus-widget.dark
+  .date-container-months
+  div:not(.no-highlight).disabled,
+.tempus-dominus-widget.dark
+  .date-container-months
+  div:not(.no-highlight).disabled:hover,
+.tempus-dominus-widget.dark
+  .date-container-years
+  div:not(.no-highlight).disabled,
+.tempus-dominus-widget.dark
+  .date-container-years
+  div:not(.no-highlight).disabled:hover,
+.tempus-dominus-widget.dark
+  .time-container-clock
+  div:not(.no-highlight).disabled,
+.tempus-dominus-widget.dark
+  .time-container-clock
+  div:not(.no-highlight).disabled:hover,
+.tempus-dominus-widget.dark
+  .time-container-hour
+  div:not(.no-highlight).disabled,
+.tempus-dominus-widget.dark
+  .time-container-hour
+  div:not(.no-highlight).disabled:hover,
+.tempus-dominus-widget.dark
+  .time-container-minute
+  div:not(.no-highlight).disabled,
+.tempus-dominus-widget.dark
+  .time-container-minute
+  div:not(.no-highlight).disabled:hover,
+.tempus-dominus-widget.dark
+  .time-container-second
+  div:not(.no-highlight).disabled,
+.tempus-dominus-widget.dark
+  .time-container-second
+  div:not(.no-highlight).disabled:hover,
+.tempus-dominus-widget.light
+  .date-container-days
+  div:not(.no-highlight).disabled,
+.tempus-dominus-widget.light
+  .date-container-days
+  div:not(.no-highlight).disabled:hover,
+.tempus-dominus-widget.light
+  .date-container-decades
+  div:not(.no-highlight).disabled,
+.tempus-dominus-widget.light
+  .date-container-decades
+  div:not(.no-highlight).disabled:hover,
+.tempus-dominus-widget.light
+  .date-container-months
+  div:not(.no-highlight).disabled,
+.tempus-dominus-widget.light
+  .date-container-months
+  div:not(.no-highlight).disabled:hover,
+.tempus-dominus-widget.light
+  .date-container-years
+  div:not(.no-highlight).disabled,
+.tempus-dominus-widget.light
+  .date-container-years
+  div:not(.no-highlight).disabled:hover,
+.tempus-dominus-widget.light
+  .time-container-clock
+  div:not(.no-highlight).disabled,
+.tempus-dominus-widget.light
+  .time-container-clock
+  div:not(.no-highlight).disabled:hover,
+.tempus-dominus-widget.light
+  .time-container-hour
+  div:not(.no-highlight).disabled,
+.tempus-dominus-widget.light
+  .time-container-hour
+  div:not(.no-highlight).disabled:hover,
+.tempus-dominus-widget.light
+  .time-container-minute
+  div:not(.no-highlight).disabled,
+.tempus-dominus-widget.light
+  .time-container-minute
+  div:not(.no-highlight).disabled:hover,
+.tempus-dominus-widget.light
+  .time-container-second
+  div:not(.no-highlight).disabled,
+.tempus-dominus-widget.light
+  .time-container-second
+  div:not(.no-highlight).disabled:hover {
+  color: var(--bs-gray-400);
+}
+.tempus-dominus-widget.dark
+  .date-container-days
+  div:not(.no-highlight).today:before,
+.tempus-dominus-widget.dark
+  .date-container-decades
+  div:not(.no-highlight).today:before,
+.tempus-dominus-widget.dark
+  .date-container-months
+  div:not(.no-highlight).today:before,
+.tempus-dominus-widget.dark
+  .date-container-years
+  div:not(.no-highlight).today:before,
+.tempus-dominus-widget.dark
+  .time-container-clock
+  div:not(.no-highlight).today:before,
+.tempus-dominus-widget.dark
+  .time-container-hour
+  div:not(.no-highlight).today:before,
+.tempus-dominus-widget.dark
+  .time-container-minute
+  div:not(.no-highlight).today:before,
+.tempus-dominus-widget.dark
+  .time-container-second
+  div:not(.no-highlight).today:before,
+.tempus-dominus-widget.light
+  .date-container-days
+  div:not(.no-highlight).today:before,
+.tempus-dominus-widget.light
+  .date-container-decades
+  div:not(.no-highlight).today:before,
+.tempus-dominus-widget.light
+  .date-container-months
+  div:not(.no-highlight).today:before,
+.tempus-dominus-widget.light
+  .date-container-years
+  div:not(.no-highlight).today:before,
+.tempus-dominus-widget.light
+  .time-container-clock
+  div:not(.no-highlight).today:before,
+.tempus-dominus-widget.light
+  .time-container-hour
+  div:not(.no-highlight).today:before,
+.tempus-dominus-widget.light
+  .time-container-minute
+  div:not(.no-highlight).today:before,
+.tempus-dominus-widget.light
+  .time-container-second
+  div:not(.no-highlight).today:before {
+  border-bottom-color: var(--bs-primary);
+  border-top-color: rgba(var(--bs-gray-900-rgb), 0.2);
+}
+.tempus-dominus-widget.dark button,
+.tempus-dominus-widget.light button {
+  color: var(--bs-body-bg);
+  background-color: var(--bs-primary);
+  border-color: var(--bs-primary);
+}
+.ki-duotone,
+.ki-outline,
+.ki-solid {
+  line-height: 1;
+  font-size: 1rem;
+  color: var(--bs-text-muted);
+}

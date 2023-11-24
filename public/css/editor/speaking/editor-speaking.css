@@ -1,0 +1,27 @@
+.speaking-editor .question__text{
+      font-size: 28px;
+      font-weight: 800;
+      text-align: center;
+      color: #284664;
+      padding: 0 15px;
+      max-width: 778px;
+      margin: 0 auto;
+      line-height: 1.36;
+}
+
+.speaking-editor .suggestion__text{
+      font-size: 16px;
+      font-weight: 300;
+      color: #284664;
+      text-align: left;
+      max-width: 750px;
+      margin: 20px auto;
+      padding: 0 15px;
+}
+
+ol, ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+}
+
