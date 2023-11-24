@@ -1,5 +1,5 @@
 import { checkApiStatus } from './Api';
-import validateAccount from './ValidateAccount';
+import validateAccount from './validateAccount';
 import signupApi from './signupApi';
 import bootstrapAccount from './bootstrapDashboard';
 import { ieltsLmsAddQuiz } from './ieltsLms';
