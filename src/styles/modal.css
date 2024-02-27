@@ -1,0 +1,226 @@
+.media-modal {
+    position: fixed;
+    top: 30px;
+    left: 30px;
+    right: 30px;
+    bottom: 30px;
+    z-index: 160000;
+}
+
+.media-modal-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: auto;
+    min-height: 300px;
+    box-shadow: 0 5px 15px rgba(0,0,0,.7);
+    background: #fff;
+    -webkit-font-smoothing: subpixel-antialiased;
+}
+.media-modal * {
+    box-sizing: content-box;
+}
+
+.edit-attachment-frame {
+    display: block;
+    height: 100%;
+    width: 100%;
+}
+
+.edit-attachment-frame .edit-media-header {
+    overflow: hidden;
+}
+
+.edit-attachment-frame .edit-media-header .left {
+    right: 102px;
+}
+
+.edit-attachment-frame .edit-media-header .right {
+    right: 51px;
+}
+
+.upload-php .media-modal-close {
+    top: 0;
+    right: 0;
+}
+
+.media-modal-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50px;
+    height: 50px;
+    margin: 0;
+    padding: 0;
+    border: 1px solid transparent;
+    background: 0 0;
+    color: #646970;
+    z-index: 1000;
+    cursor: pointer;
+    outline: 0;
+    transition: color .1s ease-in-out,background .1s ease-in-out;
+}
+
+
+.edit-attachment-frame .edit-media-header .left, .edit-attachment-frame .edit-media-header .right, .upload-php .media-modal-close {
+    cursor: pointer;
+    color: #787c82;
+    background-color: transparent;
+    height: 50px;
+    width: 50px;
+    padding: 0;
+    position: absolute;
+    text-align: center;
+    border: 0;
+    border-left: 1px solid #dcdcde;
+    transition: color .1s ease-in-out,background .1s ease-in-out;
+}
+
+.edit-attachment-frame .media-frame-title {
+    left: 0;
+    right: 150px;
+}
+.media-frame-title {
+    position: absolute;
+    top: 0;
+    left: 200px;
+    right: 0;
+    height: 50px;
+    z-index: 200;
+}
+
+.media-frame-title h1 {
+    padding: 0 16px;
+    font-size: 22px;
+    line-height: 2.27272727;
+    margin: 0;
+}
+
+.edit-attachment-frame .media-frame-content {
+    border-bottom: none;
+    bottom: 0;
+    top: 50px;
+}
+.edit-attachment-frame .media-frame-content, .edit-attachment-frame .media-frame-router {
+    left: 0;
+}
+.media-frame-content {
+    position: absolute;
+    top: 84px;
+    left: 200px;
+    right: 0;
+    bottom: 61px;
+    height: auto;
+    width: auto;
+    margin: 0;
+    overflow: auto;
+    background: #fff;
+    border-top: 1px solid #dcdcde;
+}
+
+
+.media-modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    min-height: 360px;
+    background: #000;
+    opacity: .7;
+    z-index: 159900;
+}
+
+@media only screen and (max-width: 640px), screen and (max-height: 400px){
+    .media-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+}
+
+
+/* toolbar modal */
+.media-frame.mode-grid .media-toolbar {
+    margin-bottom: 15px;
+    height: auto;
+}
+.attachments-browser.hide-sidebar .media-toolbar {
+    right: 0;
+}
+.attachments-browser .media-toolbar {
+    right: 300px;
+    height: 72px;
+    background: #fff;
+}
+
+.media-toolbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 0 16px;
+    border: 0 solid #dcdcde;
+    overflow: hidden;
+}
+
+.wp-filter {
+    display: inline-block;
+    position: relative;
+    box-sizing: border-box;
+    margin: 0px 0 5px;
+    padding: 0 10px;
+    width: 100%;
+    box-shadow: 0 1px 1px rgba(0,0,0,.04);
+    border: 1px solid #c3c4c7;
+    background: #fff;
+    color: #50575e;
+    font-size: 13px;
+    border-top:0;
+}
+
+
+/* pagination toolbar */
+.tablenav {
+    clear: both;
+    height: 30px;
+    margin: 6px 0 4px;
+    padding-top: 5px;
+    vertical-align: middle;
+}
+
+
+
+.wp-core-ui .attachment {
+    position: relative;
+    float: left;
+    padding: 8px;
+    margin: 0;
+    color: #3c434a;
+    cursor: pointer;
+    list-style: none;
+    text-align: center;
+    -webkit-user-select: none;
+    user-select: none;
+    box-sizing: border-box;
+}
+
+.attachment {
+    width: 16.66%;
+}
+
+@media only screen and (max-width: 640px), screen and (max-height: 400px){
+    .attachment {
+        width: 96%;
+    }
+}
+
+
+li.attachment.-wished .card {
+    box-shadow: 0 0 5px var(--bs-primary) !important;
+}

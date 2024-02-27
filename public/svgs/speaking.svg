@@ -1,0 +1,24 @@
+<svg width="33" height="32" viewBox="0 0 33 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Microphone" clip-path="url(#clip0_191_7447)">
+<path id="Vector" d="M21.7002 8C21.7002 5.23858 19.4616 3 16.7002 3C13.9388 3 11.7002 5.23858 11.7002 8V16C11.7002 18.7614 13.9388 21 16.7002 21C19.4616 21 21.7002 18.7614 21.7002 16V8Z" stroke="url(#paint0_linear_191_7447)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_2" d="M16.7002 25V29" stroke="url(#paint1_linear_191_7447)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_3" d="M25.7002 16C25.7002 18.3869 24.752 20.6761 23.0642 22.364C21.3763 24.0518 19.0871 25 16.7002 25C14.3132 25 12.0241 24.0518 10.3362 22.364C8.64841 20.6761 7.7002 18.3869 7.7002 16" stroke="url(#paint2_linear_191_7447)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<defs>
+<linearGradient id="paint0_linear_191_7447" x1="16.7002" y1="3" x2="16.7002" y2="21" gradientUnits="userSpaceOnUse">
+<stop stop-color="#C86478"/>
+<stop offset="1" stop-color="#954B5A"/>
+</linearGradient>
+<linearGradient id="paint1_linear_191_7447" x1="17.2002" y1="25" x2="17.2002" y2="29" gradientUnits="userSpaceOnUse">
+<stop stop-color="#C86478"/>
+<stop offset="1" stop-color="#954B5A"/>
+</linearGradient>
+<linearGradient id="paint2_linear_191_7447" x1="16.7002" y1="16" x2="16.7002" y2="25" gradientUnits="userSpaceOnUse">
+<stop stop-color="#C86478"/>
+<stop offset="1" stop-color="#954B5A"/>
+</linearGradient>
+<clipPath id="clip0_191_7447">
+<rect width="32" height="32" fill="white" transform="translate(0.700195)"/>
+</clipPath>
+</defs>
+</svg>
